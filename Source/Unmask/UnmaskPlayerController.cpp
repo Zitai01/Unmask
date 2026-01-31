@@ -44,7 +44,7 @@ void AUnmaskPlayerController::BeginPlay()
 void AUnmaskPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
-
+	InputComponent->BindAction("PrimaryCancel", IE_Pressed, this, &AUnmaskPlayerController::CloseChat);
 	// only add IMCs for local player controllers
 	if (IsLocalPlayerController())
 	{
