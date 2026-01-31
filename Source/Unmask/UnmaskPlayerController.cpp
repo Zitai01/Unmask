@@ -68,3 +68,51 @@ void AUnmaskPlayerController::SetupInputComponent()
 	}
 	
 }
+void AUnmaskPlayerController::OpenChat(AActor* NPC)
+{
+	if (!ChatWidgetClass) return;
+
+	CurrentNPC = NPC;
+
+	if (!ChatWidgetInstance)
+	{
+		ChatWidgetInstance = CreateWidget<UUserWidget>(this, ChatWidgetClass);
+		if (!ChatWidgetInstance) return;
+	}
+
+	if (!bChatOpen)
+	{
+		ChatWidgetInstance->AddToViewport(1000);
+
+		FInputModeGameAndUI Mode;
+		Mode.SetWidgetToFocus(ChatWidgetInstance->TakeWidget());
+		Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+		SetInputMode(Mode);
+
+		bShowMouseCursor = true;
+		SetIgnoreMoveInput(true);
+		SetIgnoreLookInput(true);
+
+		bChatOpen = true;
+	}
+
+	// Optional: if your widget has an input box, call a BP event like FocusInput()
+	// via a widget subclass or BlueprintImplementableEvent.
+}
+
+void AUnmaskPlayerController::CloseChat()
+{
+	if (!bChatOpen) return;
+
+	if (ChatWidgetInstance)
+	{
+		ChatWidgetInstance->RemoveFromParent();
+	}
+
+	SetInputMode(FInputModeGameOnly());
+	bShowMouseCursor = false;
+	SetIgnoreMoveInput(false);
+	SetIgnoreLookInput(false);
+
+	bChatOpen = false;
+}

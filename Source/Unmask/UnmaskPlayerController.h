@@ -47,4 +47,19 @@ protected:
 	/** Input mapping context setup */
 	virtual void SetupInputComponent() override;
 
+public:
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<class UUserWidget> ChatWidgetClass;
+
+	UPROPERTY()
+	UUserWidget* ChatWidgetInstance = nullptr;
+
+	UPROPERTY()
+	TWeakObjectPtr<AActor> CurrentNPC;
+
+	bool bChatOpen = false;
+
+	void OpenChat(AActor* NPC);
+	void CloseChat();
 };
