@@ -42,6 +42,9 @@
 *.VC.opendb
 .vsconfig
 
+*.ggul
+*.ggml
+
 # Precompiled Assets
 SourceArt/**/*.png
 SourceArt/**/*.tga
