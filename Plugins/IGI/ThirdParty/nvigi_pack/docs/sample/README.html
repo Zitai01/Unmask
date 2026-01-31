@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NVIGI 3D Sample &mdash; In-Game Inferencing SDK 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/pygments_dark.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme-switcher-general.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/omni-style-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/api-styles-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/omni-style.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/api-styles.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/mermaid-init.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/theme-setter.js"></script>
+        <script src="../_static/design-tabs.js"></script>
+        <script src="../_static/version.js"></script>
+        <script src="../_static/social-media.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Architecture" href="../nvigi_core/docs/Architecture.html" />
+    <link rel="prev" title="NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release" href="../NVIGIDeveloperPack.html" />
+ 
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+<a href="../index.html">
+  <img src="../_static/nvidia-logo-white.png" class="logo" alt="Logo"/>
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../NVIGIDeveloperPack.html">NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NVIGI 3D Sample</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-the-sample">What is the Sample?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#directory-setup">Directory Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setting-up-to-run-the-sample">Setting up to Run the Sample</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#downloading-models-offline">Downloading Models Offline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-the-gpt-cloud-plugin">Setting up the GPT Cloud Plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launching-the-sample">Launching the Sample</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-the-sample">Using the Sample</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#main-ui-page">Main UI Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model-settings-ui-pages">Model Settings UI Pages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#logging-from-the-sample">Logging from the Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#re-building-the-sample">(Re)Building the Sample</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nvigi-and-the-sample">NVIGI and the Sample</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#using-standard-layout-prebuilt-nvigi-components">Using Standard-layout Prebuilt NVIGI Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-locally-built-nvigi-components">Using Locally-Built NVIGI Components</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#setting-up-nvigi-core">Setting up NVIGI Core</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#setting-up-the-nvigi-sdk-plugins">Setting up the NVIGI SDK Plugins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#making-the-links">Making the Links</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="#generating-the-build-files">Generating the Build Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-the-sample">Building the Sample</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-sample-in-the-debugger">Running the Sample in the Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#command-line-options">Command-line Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#more-useful-command-line-arguments">More Useful Command Line Arguments:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#types-of-prompts-supported">Types of prompts supported</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-backends-support">Multiple backends support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-notes">Release Notes:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../nvigi_core/docs/Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nvigi_core/docs/GpuSchedulingForAI.html">GPU Scheduling for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nvigi_core/docs/ProgrammingGuide.html">NVIGI - Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nvigi_core/docs/ProgrammingGuideAI.html">NVIGI - Programming Guide For Local And Cloud Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/sdk/README.html">NVIDIA In-Game Inference AI Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/sdk/docs/ProgrammingGuideASRWhisper.html">Automatic Speech Recognition (ASR) - Whisper Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/sdk/docs/ProgrammingGuideGPT.html">Generative Pre-Trained Transformers (GPT) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/sdk/docs/ProgrammingGuideEmbed.html">Embedding (EMBED) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../source-build/README.html">NVIGI Public Source GitHub Pull-and-Build Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/sdk/docs/CustomizingPlugins.html">Creating a Customized Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins/sdk/3rd-party-licenses.html">3rd PARTY SOFTWARE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">In-Game Inferencing SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+<li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+  
+<li>NVIGI 3D Sample</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+  <span>&nbsp;</span>
+</li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nvigi-3d-sample">
+<h1>NVIGI 3D Sample<a class="headerlink" href="#nvigi-3d-sample" title="Permalink to this headline"></a></h1>
+<p>Version 1.1.0</p>
+<p>This project combines NVIGI and Donut (https://github.com/NVIDIAGameWorks/donut) to create a sample app demonstrating an NVIGI AI integration.</p>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+For important changes and bug fixes included in the current release, please see the release notes at the end of this document BEFORE use.</p>
+</div></blockquote>
+<section id="what-is-the-sample">
+<h2>What is the Sample?<a class="headerlink" href="#what-is-the-sample" title="Permalink to this headline"></a></h2>
+<p>The Donut-based NVIDIA NVIGI (In-Game Inference) 3D Sample is an interactive 3D application that is designed to show how one might integrate such AI features as speech recognition (ASR) and chatbots (GPT/LLM) into a UI-based workflow.  The focus in the sample is showing how to present the options to the user and run AI workflows without blocking the 3D interaction or rendering.</p>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Hardware:</p>
+<ul>
+<li><p>Windows development system with an NVIDIA RTX 30x0/A6000 series or (preferably) 4080/4090 or RTX 5080/5090 with a minimum of 8GB and recommendation of 12GB VRAM.  Note that some plugins only support 40x0 and above (e.g. the TensorRT-LLM plugin), and will not be available on 30x0. Currently SDK supports only x64 CPUs.</p></li>
+</ul>
+</li>
+<li><p>Software:</p>
+<ul>
+<li><p>NVIDIA RTX driver</p>
+<ul>
+<li><p>r551.78 or newer required for functionality</p></li>
+<li><p>For maximum performance, an r555.85 or newer driver is recommended</p></li>
+</ul>
+</li>
+<li><p>MS Visual Studio 2022 (2019 may be compatible, untested)</p></li>
+<li><p>cmake (3.27.1 tested) installed in the command prompt path</p></li>
+<li><p>Windows SDK including DirectX SDK.  Ensure that FXC.exe (https://learn.microsoft.com/en-us/windows/win32/direct3dtools/fxc) is in your PATH.</p></li>
+</ul>
+</li>
+<li><p>Etc:</p>
+<ul>
+<li><p>An NVIDIA Integrate API key, needed to use the GPT cloud plugin.  Contact your NVIDIA NVIGI developer relations representative for details if you have not been provided one.</p></li>
+<li><p>If you wish to use OpenAI cloud models, an OpenAI account API key is needed.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="directory-setup">
+<h2>Directory Setup<a class="headerlink" href="#directory-setup" title="Permalink to this headline"></a></h2>
+<p>Using the NVIDIA NVIGI (NVIGI) sample is much easier if NVIGI core, the plugins, the sample and the AI models are in “standard layout”.  If you received your SDK pack as a combined, single zip or download, it is likely already in standard layout <strong>once the provided <code class="docutils literal notranslate"><span class="pre">setup_links.bat</span></code> is run to generate some of the directories listed below as links</strong>.  Specifically, the following directories should be siblings under some <code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;</span></code> directory (the root directory of the provided pack):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvigi.models</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvigi.test</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugins/</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">sdk</span></code> (contains the AI inference plugins)</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample</span></code> (This sample)</p></li>
+</ul>
+<p>With this directory structure, setup becomes easier and some things will “just work”.  Note that this directory structure can <strong>also</strong> be simulated via junction links (<code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span></code>) which is <strong>exactly</strong> what the <code class="docutils literal notranslate"><span class="pre">setup_links.bat</span></code> file in combined, prebuilt) binary packs of NVIGI sets up.  In the case of working with NVIGI from git source code pulls, this will need to be set up manually.</p>
+</section>
+<section id="setting-up-to-run-the-sample">
+<h2>Setting up to Run the Sample<a class="headerlink" href="#setting-up-to-run-the-sample" title="Permalink to this headline"></a></h2>
+<p>There are several steps that are required in order to be able to use all of the NVIGI features shown in the sample:</p>
+<ol class="arabic simple">
+<li><p>Downloading a selection of manual-download models as pre-loaded.  These represent models that an application would bundle with their installer.  <strong>NOTE</strong> if you manually download a model while the sample is running, you will need to exit and restart the sample application in order for the model to be shown as an option in the UI.</p></li>
+<li><p>Setting up the NVIDIA Cloud API key.  The enables the use of the example cloud GPT plugin.</p></li>
+</ol>
+<section id="downloading-models-offline">
+<h3>Downloading Models Offline<a class="headerlink" href="#downloading-models-offline" title="Permalink to this headline"></a></h3>
+<p>The model directories under <code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;/nvigi.models</span></code> will, in some cases, include a Windows batch file named <code class="docutils literal notranslate"><span class="pre">download.bat</span></code>.  Double-clicking these files will download publicly-available models that can be used in the sample once downloaded.  These are referred to as “manually downloaded” models.  Other directories will include a <code class="docutils literal notranslate"><span class="pre">README.txt</span></code> file that describes how to download and set up the model; these are commonly NVIDIA NGC models that require the developer to be signed into their authorized developer account on NGC in order to access them.  See the <code class="docutils literal notranslate"><span class="pre">README.txt</span></code> for the model in question for details.</p>
+<p>At the very least, in order to run the 3D Sample, we recommend downloading at <strong>least</strong> one <code class="docutils literal notranslate"><span class="pre">nvigi.plugin.asr.ggml</span></code> and one <code class="docutils literal notranslate"><span class="pre">nvigi.plugin.gpt.ggml</span></code> to avoid an error dialog in the Sample that indicates no local models are available.</p>
+</section>
+<section id="setting-up-the-gpt-cloud-plugin">
+<h3>Setting up the GPT Cloud Plugin<a class="headerlink" href="#setting-up-the-gpt-cloud-plugin" title="Permalink to this headline"></a></h3>
+<p>The NVIGI Cloud GPT plugin that is supported by this sample uses a setup based upon an API key from a developer account on https://build.nvidia.com/explore/discover.  The basic steps to set this up are:</p>
+<ol class="arabic simple">
+<li><p>Navigate your browser to https://build.nvidia.com/explore/discover</p></li>
+<li><p>Sign up or sign on to a developer account</p></li>
+<li><p>Navigate to the model that the sample currently supports: https://build.nvidia.com/meta/llama-3_1-405b-instruct</p></li>
+<li><p>Next to the Python code example, click the “Get API Key” button and save the key for reference</p></li>
+<li><p>Set this key into your environment as the value of <code class="docutils literal notranslate"><span class="pre">NVIDIA_INTEGRATE_KEY</span></code></p></li>
+</ol>
+<p>If you wish to use the OpenAI cloud models, you will need to generate an OpenAI API key as per their instructions and set it as the value of the environment variable <code class="docutils literal notranslate"><span class="pre">OPENAI_KEY</span></code></p>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+After setting an API Key as an environment variable in the system properties, Visual Studio (if used) or the command prompt used to launch the Sample must be restarted to read the new environment variable.</p>
+</div></blockquote>
+</section>
+<section id="launching-the-sample">
+<h3>Launching the Sample<a class="headerlink" href="#launching-the-sample" title="Permalink to this headline"></a></h3>
+<p>For those using a prebuilt NVIGI binary pack, the sample executable is available immediately and can be run.  For those building from source, see below in this document how to set up and build the sample before running.</p>
+<p>We will call the location of the sample directory <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;</span></code>.  In a standard layout, this will likely be <code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;\sample</span></code>.  If the SDK plugins and sample are in standard layout, one need only run <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;\run.bat</span></code>, and it will find the manually-downloaded AI models in:</p>
+<ul class="simple">
+<li><p>Prebuilt binary packs: <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;\..\nvigi.models</span></code></p></li>
+<li><p>Git-pulled source: <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;\nvigi_plugins\data\nvigi.models</span></code></p></li>
+</ul>
+<p>To launch the sample from the command line (either pre-built or rebuilt as per the instructions below), use the command line:</p>
+<p>If the pack is in standard layout, then open a command prompt to <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;\_bin</span></code> and run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>.<span class="se">\N</span>VIGISample.exe
+</pre></div>
+</div>
+<p>Note that owing to the default path to the models directory, this is equivalent to running:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>.<span class="se">\N</span>VIGISample.exe -pathToModels ../../nvigi.models
+</pre></div>
+</div>
+<p>If the pack is not in standard layout, then you will need to open a command prompt to <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;\_bin</span></code> and run:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>.<span class="se">\N</span>VIGISample.exe -pathToModels &lt;path to nvigi.models, inclusive, forward slashes&gt;
+</pre></div>
+</div>
+<p>To run the rebuilt sample from within the debugger, see the section below “Running the Sample in the Debugger”</p>
+</section>
+<section id="using-the-sample">
+<h3>Using the Sample<a class="headerlink" href="#using-the-sample" title="Permalink to this headline"></a></h3>
+<section id="main-ui-page">
+<h4>Main UI Page<a class="headerlink" href="#main-ui-page" title="Permalink to this headline"></a></h4>
+<img alt="main_ui" class="align-center" src="../_images/main_ui.png" />
+<p>On launch, the sample will show a UI box on the left side of the window as shown above, and will show a 3D rendered scene at the same time.  This is the main UI mode.  At the top are GPU, system and performance info.  Directly below is the chat text window, which shows the results of GPT (and of ASR when used).  Below this are the interaction controls for ASR and GPT.  Details of their use are below.  At the bottom is a listing of the current models/backends in use and the “Model Settings…” button that switches to model selection and settings mode.</p>
+<p>The main UI page includes controls that allow the user to type in queries to the LLM or record a spoken query to be converted to text by ASR and then passed to the LLM.  In addition, the “Reset Chat” button clears the chat window <strong>and</strong> resets the LLM’s history context, “forgetting” previous discussion.  Typed and spoken input is handled as follows:</p>
+<ol class="arabic simple">
+<li><p><strong>Speech</strong>.  Click the “Record” button to start recording (the “Record” button will be replaced by a “Stop” button.  Then, speak a question, and conclude by pressing the “Stop” button.  The ASR plugin will compute speech recognition and print the recognized text, which will then be sent to the LLM for a response that will be printed in the UI.  If the text returned from ASR is a form of “[BLANK AUDIO]”, then check you Windows microphone settings, as the audio may not be getting routed correctly in Windows. To test different microphones, user should select microphone from Windows settings.  The model shipping with this release is the Whisper Small Multi-lingual, which supports a <em>wide</em> range of languages, with varying levels of quality/coverage.</p></li>
+<li><p><strong>Typing</strong>.  Click in the small, blank text line at the bottom of the UI, type your query and press the Enter or Return key.  The text will be sent to the LLM and the result printed to the UI.</p></li>
+</ol>
+</section>
+<section id="model-settings-ui-pages">
+<h4>Model Settings UI Pages<a class="headerlink" href="#model-settings-ui-pages" title="Permalink to this headline"></a></h4>
+<p>To change the selected models, the UI provides two modes: Manual and Automatic.  To switch to the Settings page, click the “Model Settings…” triangle at the bottom of the Main UI page.  This will show the currently-enabled settings page, which initially defaults to the Manual Settings page:</p>
+<img alt="manual_settings_ui" class="align-center" src="../_images/maual_settings_ui.png" />
+<p>Upon switching to the Manual Settings page, the UI contains:</p>
+<ul class="simple">
+<li><p>The current stats as shown in the Main UI page</p></li>
+<li><p>A checkbox to switch between the Manual and Automatic backend selection modes</p></li>
+<li><p>The currently-selected model/backend pairs for each feature</p></li>
+<li><p>Drop-downs to select a model/backend pairing for each feature</p></li>
+</ul>
+<p>In Manual mode, the drop-downs show all model/backend pairings available, grouped by model.  For example:</p>
+<img alt="manual_settings_dropdown" class="align-center" src="../_images/manual_settings_dropdown.png" />
+<p>Note that both local CUDA and remote cloud backends are shown for the model “llama-3.2-3b-instruct”.  There may be multiple available backends for some models.</p>
+<p>Selecting each type of model behaves slightly differently:</p>
+<ul class="simple">
+<li><p>Selecting locally-available models will immediately load the model from disk.  This will disable ASR or GPT until the new model is loaded, as the sample shuts down the previous model before loading the new one.</p></li>
+<li><p>Selecting a cloud model will make a connection to the cloud.  Generally, the UI will be immediately available again, as there is no local loading to be done.</p></li>
+</ul>
+<p>Clicking the “Automatic Backend Selection” checkbox will switch to the Automatic Settings page:</p>
+<img alt="auto_settings_ui" class="align-center" src="../_images/auto_settings_ui.png" />
+<p>This page is similar to the Manual Settings UI with some important differences:</p>
+<ul class="simple">
+<li><p>Each feature dropdown only shows models, not backends.  Each model will appear once</p></li>
+<li><p>Each feature has an integer VRAM budget adjustment that sets the amount of VRAM that the model may use.</p></li>
+</ul>
+<img alt="auto_settings_dropdown" class="align-center" src="../_images/auto_settings_dropdown.png" />
+<p>Unlike Manual mode, the user only selects a model in Automatic mode.  The backend is selected automatically by code in the sample.  Currently, that code selects in the following order:</p>
+<ol class="arabic simple">
+<li><p>If an NVIDIA GPU is present and a CUDA-based backend that is within the VRAM budget exists, select it</p></li>
+<li><p>If a GPU is present and a GPU-based backend that is within the VRAM budget exists, select it</p></li>
+<li><p>If a cloud API key is set for the domain (via the environment variables) and a matching cloud backend exists, select it</p></li>
+<li><p>Select a CPU backend if available.</p></li>
+</ol>
+<p>Adjusting the VRAM budget for a given feature can cause a new backend to be selected as the user is interacting.</p>
+<p>This selection metric can be changed by changing the behavior of the function <code class="docutils literal notranslate"><span class="pre">SelectAutoPlugin</span></code> in <code class="docutils literal notranslate"><span class="pre">NVIGIContext.cpp</span></code>.</p>
+</section>
+</section>
+<section id="logging-from-the-sample">
+<h3>Logging from the Sample<a class="headerlink" href="#logging-from-the-sample" title="Permalink to this headline"></a></h3>
+<p>By default, the pre-built sample will use Development plugins and core, and will launch a log window that shows the NVIGI log messages during init, creation, runtime and shutdown.  In addition, logging to file may be enabled by specifying a path (directory-only) to where logs should be written:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>NVIGISample.exe -logToFile ..<span class="se">\_</span>bin &lt;...&gt;
+</pre></div>
+</div>
+<p>With this option example a log file would be written to <code class="docutils literal notranslate"><span class="pre">..\_bin\nvigi-log.txt</span></code></p>
+<p>These logs include such information as; Creation, System Information/Capabilities, and Plugin Discovery:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.706<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:486<span class="o">][</span>nvigiInitImpl<span class="o">]</span> Overriding settings with parameters from <span class="s1">&#39;E:\sample\_bin\/nvigi.core.framework.json&#39;</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.707<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:512<span class="o">][</span>nvigiInitImpl<span class="o">]</span> Starting <span class="s1">&#39;nvigi.core.framework&#39;</span>:
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.707<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:513<span class="o">][</span>nvigiInitImpl<span class="o">]</span> <span class="c1"># timestamp: Mon Jun 10 16:39:03 2024</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.707<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:514<span class="o">][</span>nvigiInitImpl<span class="o">]</span> <span class="c1"># version: 1.1.0</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.707<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:515<span class="o">][</span>nvigiInitImpl<span class="o">]</span> <span class="c1"># build: branch  - sha 5261ff60dc5fcf6c53392cbed01d2205bf911199</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.708<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:516<span class="o">][</span>nvigiInitImpl<span class="o">]</span> <span class="c1"># author: NVIDIA</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.708<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:517<span class="o">][</span>nvigiInitImpl<span class="o">]</span> <span class="c1"># host SDK: 1.1.0</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.708<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:101<span class="o">][</span>addInterface<span class="o">]</span> <span class="o">[</span>nvigi.core.framework<span class="o">]</span> added interface <span class="s1">&#39;8ffd0ca2-62a0-4f4a-8840e27e3ff4f75f&#39;</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.708<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:101<span class="o">][</span>addInterface<span class="o">]</span> <span class="o">[</span>nvigi.core.framework<span class="o">]</span> added interface <span class="s1">&#39;8a6572e0-f713-44c7-a2bf8493a9499eb2&#39;</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.708<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:101<span class="o">][</span>addInterface<span class="o">]</span> <span class="o">[</span>nvigi.core.framework<span class="o">]</span> added interface <span class="s1">&#39;75e7a7bb-ca10-45a8-966db99000d6ea35&#39;</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.709<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:101<span class="o">][</span>addInterface<span class="o">]</span> <span class="o">[</span>nvigi.core.framework<span class="o">]</span> added interface <span class="s1">&#39;e2b94f2b-7ae8-467d-98e06f2b14410079&#39;</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.731<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>system.cpp:326<span class="o">][</span>getSystemCaps<span class="o">]</span> Found adapter <span class="s1">&#39;NVIDIA GeForce RTX 4090&#39;</span>:
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.731<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>system.cpp:327<span class="o">][</span>getSystemCaps<span class="o">]</span> <span class="c1"># LUID: 0.128553</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.731<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>system.cpp:328<span class="o">][</span>getSystemCaps<span class="o">]</span> <span class="c1"># arch: 0x190</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.731<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>system.cpp:329<span class="o">][</span>getSystemCaps<span class="o">]</span> <span class="c1"># impl: 0x2</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.732<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>system.cpp:330<span class="o">][</span>getSystemCaps<span class="o">]</span> <span class="c1"># rev: 0xa1</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.732<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>system.cpp:331<span class="o">][</span>getSystemCaps<span class="o">]</span> <span class="c1"># mem GBPS: 504.05</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.732<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>system.cpp:332<span class="o">][</span>getSystemCaps<span class="o">]</span> <span class="c1"># shader GFLOPS: 82575.36</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.732<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>system.cpp:333<span class="o">][</span>getSystemCaps<span class="o">]</span> <span class="c1"># driver: 555.40</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.733<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>system.cpp:536<span class="o">][</span>setTimerResolution<span class="o">]</span> Changed high resolution timer resolution to <span class="m">5000</span> <span class="o">[</span><span class="m">100</span> ns units<span class="o">]</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.733<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:216<span class="o">][</span>enumeratePlugins<span class="o">]</span> Scanning directory <span class="s1">&#39;E:\sample\_bin&#39;</span> <span class="k">for</span> plugins ...
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.742<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:300<span class="o">][</span>enumeratePlugins<span class="o">]</span> Found plugin <span class="s1">&#39;nvigi.plugin.asr.ggml.cpu&#39;</span>:
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.742<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:301<span class="o">][</span>enumeratePlugins<span class="o">]</span> <span class="c1"># id: 2654567f-2cf4-4e4e-95455da839695c43</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.743<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:302<span class="o">][</span>enumeratePlugins<span class="o">]</span> <span class="c1"># crc24: 0x87c5d4</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.744<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:303<span class="o">][</span>enumeratePlugins<span class="o">]</span> <span class="c1"># description: &#39;ggml backend implementation for the &#39;asr&#39; inference&#39;</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.745<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:304<span class="o">][</span>enumeratePlugins<span class="o">]</span> <span class="c1"># version: 1.1.0</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.745<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:305<span class="o">][</span>enumeratePlugins<span class="o">]</span> <span class="c1"># build: branch  - sha 5261ff60dc5fcf6c53392cbed01d2205bf911199</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.746<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:306<span class="o">][</span>enumeratePlugins<span class="o">]</span> <span class="c1"># author: &#39;NVIDIA&#39;</span>
+<span class="o">[</span><span class="m">2024</span>-06-13 <span class="m">08</span>:57:14.746<span class="o">][</span>nvigi<span class="o">][</span>info<span class="o">][</span>framework.cpp:309<span class="o">][</span>enumeratePlugins<span class="o">]</span> <span class="c1"># interface: {f0038a35-eec2-4230-811d58c9498671bc} v1</span>
+</pre></div>
+</div>
+<p>These can be useful when debugging issues or sending support questions.</p>
+<p>In addition, if the GGML LLM/GPT plugin is used, the plugin may write a llama.log to the runtime directory.  This file is written by the GGML code itself, and contains model-specific debugging output as per https://github.com/ggerganov/ggml</p>
+</section>
+</section>
+<section id="re-building-the-sample">
+<h2>(Re)Building the Sample<a class="headerlink" href="#re-building-the-sample" title="Permalink to this headline"></a></h2>
+<section id="nvigi-and-the-sample">
+<h3>NVIGI and the Sample<a class="headerlink" href="#nvigi-and-the-sample" title="Permalink to this headline"></a></h3>
+<p>The sample needs several components of NVIGI in order to build.  The easiest method of getting the NVIGI components is the pre-built, combined NVIGI package download mentioned at the top of this document, which contains all of the pieces including the sample, NVIGI core, and the AI plugins.  This is likely the way you received this sample.  The other option is to build and package the components from git-pulled source.  Both methods are described below.</p>
+<section id="using-standard-layout-prebuilt-nvigi-components">
+<h4>Using Standard-layout Prebuilt NVIGI Components<a class="headerlink" href="#using-standard-layout-prebuilt-nvigi-components" title="Permalink to this headline"></a></h4>
+<p>Note that the standard-layout NVIGI pack likely included a top-level <code class="docutils literal notranslate"><span class="pre">setup_links.bat</span></code> file.  If this was run as per the top-level docs before trying to use the Sample, then the steps in this section are likely needless.  However, this section explains what that script sets up.</p>
+<p>Assuming standard-layout, i.e.:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&lt;ROOT&gt;
+    nvigi_core
+    plugins
+        sdk
+    sample
+</pre></div>
+</div>
+<p>If they <em>do not</em> already exist, the following junctions would be needed/expected:
+<strong>NOTE: As noted above, these steps are likely not needed if you have a standard-layout pack and ran the <code class="docutils literal notranslate"><span class="pre">setup_links.bat</span></code> script at the top level of the pack.  They are for reference only</strong></p>
+<ol class="arabic">
+<li><p>Open a command prompt to <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;</span></code></p></li>
+<li><p>Make a junction link between <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;/nvigi_core</span></code> and core, i.e. in standard layout, do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span> <span class="pre">nvigi_core</span> <span class="pre">..\nvigi_core</span></code></p>
+</li>
+<li><p>Make a junction link between <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;/nvigi_plugins</span></code> and the SDK plugins, i.e. in standard layout, do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span> <span class="pre">nvigi_plugins</span> <span class="pre">..\plugins\sdk</span></code></p>
+</li>
+<li><p>Make a junction link between <code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;/nvigi.models</span></code> and the models tree, i.e.<code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;/plugins/sdk/data/nvigi.models</span></code> in standard layout, do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span> <span class="pre">nvigi.models</span> <span class="pre">..\plugins\sdk\data\nvigi.models</span></code></p>
+</li>
+<li><p>Make a junction link between <code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;/nvigi.test</span></code> and the test data tree, i.e.<code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;/pugins/sdk/data/nvigi.test</span></code> in standard layout, do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span> <span class="pre">nvigi.test</span> <span class="pre">..\plugins\sdk\data\nvigi.test</span></code></p>
+</li>
+</ol>
+</section>
+<section id="using-locally-built-nvigi-components">
+<h4>Using Locally-Built NVIGI Components<a class="headerlink" href="#using-locally-built-nvigi-components" title="Permalink to this headline"></a></h4>
+<p>In order to build the Sample from git-pulled source components, you will need to build and package NVIGI Core into a “Runtime SDK” and build and package the SDK Plugins.</p>
+<section id="setting-up-nvigi-core">
+<h5>Setting up NVIGI Core<a class="headerlink" href="#setting-up-nvigi-core" title="Permalink to this headline"></a></h5>
+<p>If you are building core and the plugins from scratch, then you will have already built and packaged an NVIGI Core “PDK”.  However, unlike building plugins, the sample is an app and builds against the Core packaged as a “Core Runtime”.  This is easy to do.  Assuming that the git-pulled core tree is rooted at a location we will call <code class="docutils literal notranslate"><span class="pre">&lt;CORE_ROOT&gt;</span></code>, the steps are:</p>
+<ol class="arabic simple">
+<li><p>Batch-build all confgurations of core as per the core documentation</p></li>
+<li><p>Open a VS Development Command Prompt to <code class="docutils literal notranslate"><span class="pre">&lt;CORE_ROOT&gt;</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">package.bat</span> <span class="pre">-config</span> <span class="pre">runtime</span> <span class="pre">-dir</span> <span class="pre">_runtime</span></code></p></li>
+<li><p>The “Core Runtime” will now be located in <code class="docutils literal notranslate"><span class="pre">&lt;CORE_ROOT&gt;\_runtime</span></code></p></li>
+</ol>
+</section>
+<section id="setting-up-the-nvigi-sdk-plugins">
+<h5>Setting up the NVIGI SDK Plugins<a class="headerlink" href="#setting-up-the-nvigi-sdk-plugins" title="Permalink to this headline"></a></h5>
+<p>Assuming that the git-pulled plugins tree is rooted at a location we will call <code class="docutils literal notranslate"><span class="pre">&lt;PLUGINS_ROOT&gt;</span></code>, the steps are:</p>
+<ol class="arabic simple">
+<li><p>Batch-build all confgurations of the plugins SDK as per the SDK documentation</p></li>
+<li><p>Open a VS Development Command Prompt to <code class="docutils literal notranslate"><span class="pre">&lt;PLUGINS_ROOT&gt;</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">copy_sdk_binaries.bat</span> <span class="pre">&lt;cfg&gt;</span></code> where <code class="docutils literal notranslate"><span class="pre">cfg</span></code> is the desired SDK config, generally <code class="docutils literal notranslate"><span class="pre">Release</span></code> or <code class="docutils literal notranslate"><span class="pre">Debug</span></code></p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">copy_3rd_party.bat</span></code></p></li>
+<li><p>The full set of “SDK components” will now be located in <code class="docutils literal notranslate"><span class="pre">&lt;PLUGINS_ROOT&gt;</span></code></p></li>
+</ol>
+</section>
+<section id="making-the-links">
+<h5>Making the Links<a class="headerlink" href="#making-the-links" title="Permalink to this headline"></a></h5>
+<ol class="arabic">
+<li><p>Open a command prompt to <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;</span></code></p></li>
+<li><p>Make a junction link between <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;/nvigi_core</span></code> and the core runtime, i.e. do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span> <span class="pre">nvigi_core</span> <span class="pre">&lt;CORE_ROOT&gt;\_runtime</span></code></p>
+</li>
+<li><p>Make a junction link between <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;/nvigi_plugins</span></code> and the SDK plugins, i.e. do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span> <span class="pre">nvigi_plugins</span> <span class="pre">&lt;PLUGINS_ROOT&gt;</span></code></p>
+</li>
+<li><p>Make a junction link between <code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;/nvigi.models</span></code> and the models tree, i.e. do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span> <span class="pre">nvigi.models</span> <span class="pre">&lt;PLUGINS_ROOT&gt;\data\nvigi.models</span></code></p>
+</li>
+<li><p>Make a junction link between <code class="docutils literal notranslate"><span class="pre">&lt;ROOT&gt;/nvigi.models</span></code> and the test data tree, i.e. do the following:</p>
+<p><code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span> <span class="pre">nvigi.test</span> <span class="pre">&lt;PLUGINS_ROOT&gt;\data\nvigi.test</span></code></p>
+</li>
+</ol>
+</section>
+</section>
+<section id="generating-the-build-files">
+<h4>Generating the Build Files<a class="headerlink" href="#generating-the-build-files" title="Permalink to this headline"></a></h4>
+<p>The Sample uses CMake to generate the build files.  We wrap the command line in a script for ease of use.</p>
+<ol class="arabic simple">
+<li><p>Open a Visual Studio (MSVC) development prompt to <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;</span></code></p></li>
+<li><p>Run the <code class="docutils literal notranslate"><span class="pre">make.bat</span></code> script (which runs cmake with the right settings to generate the build files into <code class="docutils literal notranslate"><span class="pre">_build</span></code>).  Run this from the Visual Studio development prompt command line - do not simply double-click the file, as this will make it hard to review the resulting log.</p></li>
+</ol>
+</section>
+<section id="building-the-sample">
+<h4>Building the Sample<a class="headerlink" href="#building-the-sample" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p>In MSVC, open <code class="docutils literal notranslate"><span class="pre">&lt;SAMPLE_ROOT&gt;/_build/NVIGISample.sln</span></code></p></li>
+<li><p>Build Release or Debug - this will build the sample and then copy the executable and all DLL dependencies into <code class="docutils literal notranslate"><span class="pre">_bin</span></code>.  The Debug configuration will build the Sample source itself with optimization disabled and includes debug information.  The Release configuration will build the Sample source itself with optimization and without debug information.  Use Release for top performance (of the Sample code itself; the linked NVIGI SDK will not change).  Use Debug for stepping through the code.</p></li>
+</ol>
+<blockquote>
+<div><p>NOTE: Owing to an issue in the current build setup, we strongly recommend that when switching from one build config to another (e.g. from Production to Release), in order to build that config, do one of the following:</p>
+<ul class="simple">
+<li><p>Touch a Sample source file before building to force a compile/relink</p></li>
+<li><p>Delete <code class="docutils literal notranslate"><span class="pre">_bin\NVIGISample.exe</span></code> before building to force a relink</p></li>
+<li><p>Do a full rebuild, not a minimal build</p></li>
+</ul>
+<p>A fix is slated for a coming release</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="running-the-sample-in-the-debugger">
+<h2>Running the Sample in the Debugger<a class="headerlink" href="#running-the-sample-in-the-debugger" title="Permalink to this headline"></a></h2>
+<ol class="arabic simple">
+<li><p>In the Solution Explorer in MSVC, right click “NVIGI Sample : NVIGISample”</p></li>
+<li><p>Select your current build configuration</p></li>
+<li><p>Select the “Debugging” tag</p></li>
+<li><p>Set the “Working Directory” to <code class="docutils literal notranslate"><span class="pre">$(TargetDir)</span></code></p></li>
+<li><p>Set the “Command Arguments” to:</p>
+<ul class="simple">
+<li><p>If sample, core and plugins are from a prebuilt, combined binary pack in “standard layout” <code class="docutils literal notranslate"><span class="pre">-pathToModels</span> <span class="pre">../../nvigi.models</span></code></p></li>
+<li><p>If building locally from a set of git source repos <code class="docutils literal notranslate"><span class="pre">-pathToModels</span> <span class="pre">&lt;PLUGINS_ROOT&gt;/data/nvigi.models</span></code></p></li>
+</ul>
+</li>
+<li><p>F5 to launch</p></li>
+</ol>
+</section>
+<section id="command-line-options">
+<h2>Command-line Options<a class="headerlink" href="#command-line-options" title="Permalink to this headline"></a></h2>
+<p>A subset including the most interesting options to the most common users:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Arguments</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-pathToModels</span></code></p></td>
+<td><p>Required for just about any use - documented above, should point to the downloaded and unzipped models tree</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-logToFile</span> <span class="pre">&lt;directory&gt;</span></code></p></td>
+<td><p>Enables logging to file and sets the destination directory for logging.  The log will be written to <code class="docutils literal notranslate"><span class="pre">&lt;directory&gt;/nvigi-log.txt</span></code> <strong>NOTE</strong> Currently, this directory must be pre-existing.  The Sample will not auto-create it.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="more-useful-command-line-arguments">
+<h3>More Useful Command Line Arguments:<a class="headerlink" href="#more-useful-command-line-arguments" title="Permalink to this headline"></a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Arguments</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-width 1920</p></td>
+<td><p>Sets width</p></td>
+</tr>
+<tr class="row-odd"><td><p>-height 1080</p></td>
+<td><p>Sets height</p></td>
+</tr>
+<tr class="row-even"><td><p>-verbose</p></td>
+<td><p>Allows vebose info level logging logging</p></td>
+</tr>
+<tr class="row-odd"><td><p>-debug</p></td>
+<td><p>Enables NVRHI and Graphics API validation Layer</p></td>
+</tr>
+<tr class="row-even"><td><p>-noSigCheck</p></td>
+<td><p>Does not do NVIGI dll signiture check</p></td>
+</tr>
+<tr class="row-odd"><td><p>-vsync</p></td>
+<td><p>Enables Vsync</p></td>
+</tr>
+<tr class="row-even"><td><p>-scene “/myscene.fbx”</p></td>
+<td><p>Loads a custom scene</p></td>
+</tr>
+<tr class="row-odd"><td><p>-maxFrames 100</p></td>
+<td><p>Sets number of frames to render before the app shuts down</p></td>
+</tr>
+<tr class="row-even"><td><p>-noCIG</p></td>
+<td><p>Disable the use of CUDA in Graphics optimization (for debugging/testing purposes)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="types-of-prompts-supported">
+<h2>Types of prompts supported<a class="headerlink" href="#types-of-prompts-supported" title="Permalink to this headline"></a></h2>
+<p>The sample, as shipped, focuses upon conversational “helpful AI assistant” interactions, designed for the user to ask questions and follow-up questions (owing to the availability of historical context).  Other forms of prompting may be used by editing the source code in <code class="docutils literal notranslate"><span class="pre">src/nvigi/NVIGIContext.cpp</span></code>, in <code class="docutils literal notranslate"><span class="pre">NVIGIContext::LaunchGPT</span></code> at the initial system prompt:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">initialPrompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;You are a helpful AI assistant answering user questions.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The system prompt can be edited to change how the conversation is guided.  Other, more complex examples such as RAG (Retrieval-Augmented Generation) are shown in the command-line samples provided and documented in the SDK.  See the <code class="docutils literal notranslate"><span class="pre">plugins/sdk</span></code> documentation for details.</p>
+</section>
+<section id="multiple-backends-support">
+<h2>Multiple backends support<a class="headerlink" href="#multiple-backends-support" title="Permalink to this headline"></a></h2>
+<p>Using NVIGI, it’s possible to support multiple backends within single application. Sample app shows one such usecase using GGML and ONNX GenAI DirectML based backends. Support for multiple backends ensures application developer can create wide variety of inference pipelines. In the sample, based on user selection, particular type of backend is instantiated and used for inferencing.</p>
+</section>
+<section id="release-notes">
+<h2>Release Notes:<a class="headerlink" href="#release-notes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>The current release has a significantly different layout and structure than what was shipped in the Early Access packs.  This includes:</p>
+<ul>
+<li><p>Updated to the new, split architecture of NVIGI, which makes the core, and the main AI plugins each more independent.</p></li>
+<li><p>Added support for the UI to show a range of available models, including those that can be manually downloaded outside of the Sample.</p></li>
+<li><p>Support for a more conversational LLM assistant with significant context.</p></li>
+<li><p>Added support for CUDA in Graphics</p></li>
+</ul>
+</li>
+<li><p>The sample is designed for use with local systems - use of the sample on remote desktop is not recommended.  Support for remote desktop is being investigated for an upcoming release.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+<img src="../_static/NVIDIA-LogoBlack.svg" class="only-light"/>
+<img src="../_static/NVIDIA-LogoWhite.svg" class="only-dark"/>
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright &#169; 2024-2025, NVIDIA Corporation.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Mar 13, 2025.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+</body>
+</html>

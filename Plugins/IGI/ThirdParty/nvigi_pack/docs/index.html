@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In-Game Inferencing SDK (IGI) &mdash; In-Game Inferencing SDK 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments_dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme-switcher-general.css" type="text/css" />
+      <link rel="stylesheet" href="_static/omni-style-dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/api-styles-dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/omni-style.css" type="text/css" />
+      <link rel="stylesheet" href="_static/api-styles.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/mermaid-init.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/theme-setter.js"></script>
+        <script src="_static/design-tabs.js"></script>
+        <script src="_static/version.js"></script>
+        <script src="_static/social-media.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release" href="NVIGIDeveloperPack.html" />
+ 
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+<a href="#">
+  <img src="_static/nvidia-logo-white.png" class="logo" alt="Logo"/>
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NVIGIDeveloperPack.html">NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sample/README.html">NVIGI 3D Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html">GPU Scheduling for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html">NVIGI - Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html">NVIGI - Programming Guide For Local And Cloud Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/README.html">NVIDIA In-Game Inference AI Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html">Automatic Speech Recognition (ASR) - Whisper Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html">Generative Pre-Trained Transformers (GPT) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html">Embedding (EMBED) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source-build/README.html">NVIGI Public Source GitHub Pull-and-Build Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html">Creating a Customized Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html">3rd PARTY SOFTWARE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">In-Game Inferencing SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+<li><a href="#" class="icon icon-home"></a> &raquo;</li>
+  
+<li>In-Game Inferencing SDK (IGI)</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+  <span>&nbsp;</span>
+</li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="in-game-inferencing-sdk-igi">
+<h1>In-Game Inferencing SDK (IGI)<a class="headerlink" href="#in-game-inferencing-sdk-igi" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound" id="user-guide">
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NVIGIDeveloperPack.html">NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="NVIGIDeveloperPack.html#what-is-nvigi">What is NVIGI?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NVIGIDeveloperPack.html#the-current-release-of-the-developer-pack">The Current Release of the Developer Pack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NVIGIDeveloperPack.html#where-do-i-start">Where Do I Start?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NVIGIDeveloperPack.html#getting-models">Getting Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NVIGIDeveloperPack.html#cloud-models">Cloud Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NVIGIDeveloperPack.html#manually-downloadable-public-models">Manually-Downloadable, Public Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="NVIGIDeveloperPack.html#important-documentation-in-the-developer-pack">Important Documentation in the Developer Pack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NVIGIDeveloperPack.html#contents-of-the-developer-pack">Contents of the Developer Pack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NVIGIDeveloperPack.html#known-issues-and-important-notes">Known Issues and Important Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="NVIGIDeveloperPack.html#release">1.1.0 Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NVIGIDeveloperPack.html#id1">1.0.0 Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="NVIGIDeveloperPack.html#beta-1">Beta 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sample/README.html">NVIGI 3D Sample</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#what-is-the-sample">What is the Sample?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#directory-setup">Directory Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#setting-up-to-run-the-sample">Setting up to Run the Sample</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sample/README.html#downloading-models-offline">Downloading Models Offline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample/README.html#setting-up-the-gpt-cloud-plugin">Setting up the GPT Cloud Plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample/README.html#launching-the-sample">Launching the Sample</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample/README.html#using-the-sample">Using the Sample</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sample/README.html#main-ui-page">Main UI Page</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sample/README.html#model-settings-ui-pages">Model Settings UI Pages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sample/README.html#logging-from-the-sample">Logging from the Sample</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#re-building-the-sample">(Re)Building the Sample</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sample/README.html#nvigi-and-the-sample">NVIGI and the Sample</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="sample/README.html#using-standard-layout-prebuilt-nvigi-components">Using Standard-layout Prebuilt NVIGI Components</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sample/README.html#using-locally-built-nvigi-components">Using Locally-Built NVIGI Components</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="sample/README.html#setting-up-nvigi-core">Setting up NVIGI Core</a></li>
+<li class="toctree-l5"><a class="reference internal" href="sample/README.html#setting-up-the-nvigi-sdk-plugins">Setting up the NVIGI SDK Plugins</a></li>
+<li class="toctree-l5"><a class="reference internal" href="sample/README.html#making-the-links">Making the Links</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="sample/README.html#generating-the-build-files">Generating the Build Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="sample/README.html#building-the-sample">Building the Sample</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#running-the-sample-in-the-debugger">Running the Sample in the Debugger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#command-line-options">Command-line Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="sample/README.html#more-useful-command-line-arguments">More Useful Command Line Arguments:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#types-of-prompts-supported">Types of prompts supported</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#multiple-backends-support">Multiple backends support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample/README.html#release-notes">Release Notes:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/Architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/Architecture.html#typed-and-versioned-structures">Typed And Versioned Structures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/Architecture.html#interfaces">Interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/Architecture.html#core">Core</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/Architecture.html#internal-api">Internal API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/Architecture.html#versioning">Versioning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/Architecture.html#plugin-structure">Plugin Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/Architecture.html#external-api">External API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/Architecture.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/Architecture.html#interface-loading">Interface loading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/Architecture.html#interface-unloading">Interface unloading</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/Architecture.html#shutdown">Shutdown</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html">GPU Scheduling for AI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html#supported-plugins">Supported plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html#a-note-on-performance-measurement">A note on performance measurement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html#how-to-use">How to use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html#how-to-set-the-relative-priority-of-compute-and-graphics">How to set the relative priority of compute and graphics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html#api">API</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html#cig-and-d3d-wrappers-e-g-streamline">CiG and D3D Wrappers (e.g. Streamline)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html#limitations">Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html#unrealengine-5-example-code">UnrealEngine 5 example code</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html">NVIGI - Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#version-1-1-0-release">Version 1.1.0 Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#introduction">INTRODUCTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#key-concepts">Key Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#typed-and-versioned-structures">Typed And Versioned Structures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#input-data">Input Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#output-data">Output Data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#thread-safety">Thread Safety</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#security">Security</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#digital-signatures">Digital Signatures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#elevated-privileges">Elevated Privileges</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#core-api">Core API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#initialization">Initialization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#shutdown">Shutdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#interfaces">Interfaces</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#validation">Validation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#check-if-specific-plugin-is-supported">Check If Specific Plugin Is Supported</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#check-for-minimum-required-os-version">Check For Minimum Required OS Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#check-for-minimum-required-adapter-driver-version">Check For Minimum Required Adapter Driver Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#check-for-minimum-required-adapter-vendor">Check For Minimum Required Adapter Vendor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#check-for-minimum-required-adapter-architecture">Check For Minimum Required Adapter Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#check-if-specific-plugin-exports-an-interface">Check If Specific Plugin Exports An Interface</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#nvigi-and-d3d-wrappers-e-g-streamline">NVIGI and D3D Wrappers (e.g. Streamline)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#rd-party-dependencies">3rd Party Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#runtime-scenarios-with-dependencies">Runtime Scenarios With Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#plugin-and-dependencies-deployment-examples">Plugin And Dependencies Deployment Examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#everything-in-one-location">Everything In One Location:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#split-in-multiple-locations">Split In Multiple Locations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#invalid-configurations">Invalid Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html#collisions-with-the-host">Collisions With The Host</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html">NVIGI - Programming Guide For Local And Cloud Inference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#version-1-1-0-release">Version 1.1.0 Release</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#introduction">INTRODUCTION</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#key-concepts">Key Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#model-repository">Model Repository</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#obtaining-models">Obtaining Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#local-execution">Local Execution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#prompt-templates-for-llm-models">Prompt Templates for LLM Models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#remote-execution">Remote Execution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#common-and-custom-capabilities-and-requirements">Common And Custom Capabilities and Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#local-plugins">Local Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#cloud-plugins">Cloud Plugins</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#creation-parameters">Creation Parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#common-and-custom">Common and Custom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#id1">Cloud Plugins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#id2">Local Plugins</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#compute-in-graphics-cig">Compute In Graphics (CIG)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#data-types">Data Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#input-slots">Input Slots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#execution-context">Execution Context</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#blocking-vs-asynchronous-evaluation">Blocking Vs Asynchronous Evaluation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#obtaining-results">Obtaining Results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#callback-approach">Callback Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html#polling-approach">Polling Approach</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/README.html">NVIDIA In-Game Inference AI Plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/README.html#hardware">Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/README.html#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/README.html#nvigi-components">NVIGI Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#directory-setup">DIRECTORY SETUP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#basic-steps-summary">Basic Steps: Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#installing-built-binaries">“Installing” Built Binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#samples">Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#changing-an-existing-project">Changing an Existing Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#programming-guides">Programming Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#sample-app-and-source">Sample App and Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/README.html#release-notes">Release Notes:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html">Automatic Speech Recognition (ASR) - Whisper Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#version-1-1-0-general-access">Version 1.1.0 General Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#initialize-and-shutdown">1.0 INITIALIZE AND SHUTDOWN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#obtain-asr-interface">2.0 OBTAIN ASR INTERFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#create-asr-instance-s">3.0 CREATE ASR INSTANCE(S)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#obtain-capabilities-and-requirements-for-model-s">3.1 OBTAIN CAPABILITIES AND REQUIREMENTS FOR MODEL(S)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#local">LOCAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#cloud-vram-ignored">CLOUD (VRAM ignored)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#create-model-instance">3.2 CREATE MODEL INSTANCE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#audio-input">4.0 AUDIO INPUT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#process-complete-audio-clip">4.1 PROCESS COMPLETE AUDIO CLIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#stream-audio">4.2 STREAM AUDIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#prepare-input-slot">4.3 PREPARE INPUT SLOT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#setup-callback-to-receive-inferred-data">5.0 SETUP CALLBACK TO RECEIVE INFERRED DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#prepare-the-execution-context">6.0 PREPARE THE EXECUTION CONTEXT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#add-asr-inference-to-the-pipeline">7.0 ADD ASR INFERENCE TO THE PIPELINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#destroy-instance-s">8.0 DESTROY INSTANCE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#unload-interface-s">9.0 UNLOAD INTERFACE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#appendix">APPENDIX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#memory-tracking">MEMORY TRACKING</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html#cuda">CUDA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html">Generative Pre-Trained Transformers (GPT) Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#initialize-and-shutdown">1.0 INITIALIZE AND SHUTDOWN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#obtain-gpt-interface-s">2.0 OBTAIN GPT INTERFACE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#create-gpt-instance-s">3.0 CREATE GPT INSTANCE(S)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#obtain-capabilities-and-requirements-for-model-s">3.1 OBTAIN CAPABILITIES AND REQUIREMENTS FOR MODEL(S)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#local">LOCAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#cloud-vram-ignored">CLOUD (VRAM ignored)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#create-model-instance">3.2 CREATE MODEL INSTANCE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#setup-callback-to-receive-inferred-data">4.0 SETUP CALLBACK TO RECEIVE INFERRED DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#prepare-the-execution-context">5.0 PREPARE THE EXECUTION CONTEXT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#instruct-mode">5.1 INSTRUCT MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#interactive-chat-mode">5.2 INTERACTIVE (CHAT) MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#cloud">5.3 CLOUD</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#instruct-or-chat-mode">5.3.1 INSTRUCT OR CHAT MODE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#full-control-via-json-input-slot">5.3.1 FULL CONTROL VIA JSON INPUT SLOT</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#outputs">5.4 OUTPUTS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#add-gpt-inference-to-the-pipeline">6.0 ADD GPT INFERENCE TO THE PIPELINE</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#id1">6.1 INSTRUCT MODE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#interact-mode">6.2 INTERACT MODE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#destroy-instance-s">7.0 DESTROY INSTANCE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#unload-interface-s">8.0 UNLOAD INTERFACE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#vlm-visual-lanuage-models">9.0 VLM (Visual Lanuage Models)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#appendix">APPENDIX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#memory-tracking">MEMORY TRACKING</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#cuda">CUDA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html#chat-mode-setup-summary">CHAT MODE SETUP SUMMARY</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html">Embedding (EMBED) Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#version-1-1-0-general-access">Version 1.1.0 General Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#initialize-and-shutdown">1.0 INITIALIZE AND SHUTDOWN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#obtain-embed-interface-s">2.0 OBTAIN EMBED INTERFACE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#create-embed-instance-s">3.0 CREATE EMBED INSTANCE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#setup-callback-to-receive-inferred-data">4.0 SETUP CALLBACK TO RECEIVE INFERRED DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#prepare-the-execution-context-and-execute-inference">5.0 PREPARE THE EXECUTION CONTEXT AND EXECUTE INFERENCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#do-something-with-the-embedding">6.0 Do something with the embedding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#use-it-to-match-a-player-s-answer-to-a-set-of-predefined-answers">6.1 Use it to match a player’s answer to a set of predefined answers.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#destroy-instance-s">7.0 DESTROY INSTANCE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#unload-interface-s">8.0 UNLOAD INTERFACE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html#exceptions">9.0 Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="source-build/README.html">NVIGI Public Source GitHub Pull-and-Build Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source-build/README.html#clone-all-bat"><code class="docutils literal notranslate"><span class="pre">01_clone_all.bat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source-build/README.html#prerequisites">Prerequisites</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="source-build/README.html#build-pack-core-bat"><code class="docutils literal notranslate"><span class="pre">02_build_pack_core.bat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source-build/README.html#id1">Prerequisites</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="source-build/README.html#build-pack-plugins-bat"><code class="docutils literal notranslate"><span class="pre">03_build_pack_plugins.bat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source-build/README.html#id2">Prerequisites</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="source-build/README.html#build-sample-bat"><code class="docutils literal notranslate"><span class="pre">04_build_sample.bat</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source-build/README.html#id3">Prerequisites</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html">Creating a Customized Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#steps">Steps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#add-a-new-plugin-project">1. Add a New Plugin Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#update-names-and-guids-in-source-files">2. Update Names and GUIDs in Source Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#optional-update-your-app-to-use-the-new-plugin">3. (Optional) Update Your App to Use the New Plugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#customize-your-plugin">4. Customize Your Plugin!</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#adding-new-structures-or-interfaces">5. Adding New Structures Or Interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#using-new-structures-or-interfaces">6. Using New Structures Or Interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#data-structures">6.1 Data Structures</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html#interface-structures">6.2 Interface Structures</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html">3rd PARTY SOFTWARE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#abseil-cpp">abseil-cpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#catch2">catch2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#cpp-httplib">cpp-httplib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#grpc">grpc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#mozilla-public-license-version-2-0">Mozilla Public License Version 2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#exhibit-a-source-code-form-license-notice">Exhibit A - Source Code Form License Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#exhibit-b-incompatible-with-secondary-licenses-notice">Exhibit B - “Incompatible With Secondary Licenses” Notice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#nlohmann-json">nlohmann_json</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#protobuf">protobuf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#address-sorting">address_sorting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#benchmark">benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#bloaty">bloaty</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#boringssl">boringssl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#openssl-license">OpenSSL License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#original-ssleay-license">Original SSLeay License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#licenses-for-support-code">Licenses for support code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#capstone">capstone</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#c-ares">c-ares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#clara">Clara</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#demumble">demumble</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#embeddings-cpp">embeddings.cpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#emscripten">emscripten</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#envoy-api">envoy-api</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#everest">everest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#freebsd-elf">freebsd_elf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#freebsd">$FreeBSD$</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#googletest">GoogleTest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#jsoncpp">jsoncpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#libcurl">libcurl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#libcxxabi">libcxxabi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#libzip">libzip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#lief-pe">lief_pe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#lua">lua</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#lunit">lunit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#lunit-license">Lunit License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#mbedtls">mbedtls</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#microsoft-ai-directml">Microsoft.AI.DirectML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#microsoft-ml-onnxruntime-directml">Microsoft.ML.OnnxRuntime.DirectML</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#onnx">onnx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#opencensus-proto">opencensus-proto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#openfst">OpenFST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#opentelemetry">opentelemetry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#premake">premake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#protobuf-mutator">protobuf-mutator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#protoc-gen-validate">protoc-gen-validate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#pybind11">Pybind11</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#re2">re2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#textflowcpp">TextFlowCpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#thrax">Thrax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#treesitter">treesitter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#undname-c">undname.c</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#upb">upb</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#utf8-range">utf8_range</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#xds">xds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#xxhash">xxhash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#zlib">zlib</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#llama-cpp">llama.cpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#whisper-cpp">whisper.cpp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#whisper-small">whisper-small</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#phi-2-gguf">phi-2-GGUF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#dr-libs">dr_libs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#dear-imgui">Dear ImGui</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#ggml-implementation">GGML Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#sbert-ggml-implementation">SBERT GGML Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#bge-flag-ggml-implementation">BGE Flag GGML Implementation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html#bge-weights">BGE Weights</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">orphan</dt>
+<dd class="field-odd"><p>plugins/sdk/docs/Samples.md</p>
+</dd>
+</dl>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+<img src="_static/NVIDIA-LogoBlack.svg" class="only-light"/>
+<img src="_static/NVIDIA-LogoWhite.svg" class="only-dark"/>
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright &#169; 2024-2025, NVIDIA Corporation.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Mar 13, 2025.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+</body>
+</html>

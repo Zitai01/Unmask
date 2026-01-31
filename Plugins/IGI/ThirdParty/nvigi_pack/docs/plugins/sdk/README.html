@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NVIDIA In-Game Inference AI Plugins &mdash; In-Game Inferencing SDK 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/pygments_dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/theme-switcher-general.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/omni-style-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/api-styles-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/omni-style.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/api-styles.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/mermaid-init.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/theme-setter.js"></script>
+        <script src="../../_static/design-tabs.js"></script>
+        <script src="../../_static/version.js"></script>
+        <script src="../../_static/social-media.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Automatic Speech Recognition (ASR) - Whisper Programming Guide" href="docs/ProgrammingGuideASRWhisper.html" />
+    <link rel="prev" title="NVIGI - Programming Guide For Local And Cloud Inference" href="../../nvigi_core/docs/ProgrammingGuideAI.html" />
+ 
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+<a href="../../index.html">
+  <img src="../../_static/nvidia-logo-white.png" class="logo" alt="Logo"/>
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../NVIGIDeveloperPack.html">NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../sample/README.html">NVIGI 3D Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nvigi_core/docs/Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nvigi_core/docs/GpuSchedulingForAI.html">GPU Scheduling for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nvigi_core/docs/ProgrammingGuide.html">NVIGI - Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../nvigi_core/docs/ProgrammingGuideAI.html">NVIGI - Programming Guide For Local And Cloud Inference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NVIDIA In-Game Inference AI Plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hardware">Hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nvigi-components">NVIGI Components</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#directory-setup">DIRECTORY SETUP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#basic-steps-summary">Basic Steps: Summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building">Building</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-built-binaries">“Installing” Built Binaries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#samples">Samples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#changing-an-existing-project">Changing an Existing Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#programming-guides">Programming Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-app-and-source">Sample App and Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-notes">Release Notes:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docs/ProgrammingGuideASRWhisper.html">Automatic Speech Recognition (ASR) - Whisper Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/ProgrammingGuideGPT.html">Generative Pre-Trained Transformers (GPT) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/ProgrammingGuideEmbed.html">Embedding (EMBED) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../source-build/README.html">NVIGI Public Source GitHub Pull-and-Build Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs/CustomizingPlugins.html">Creating a Customized Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3rd-party-licenses.html">3rd PARTY SOFTWARE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">In-Game Inferencing SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+<li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+  
+<li>NVIDIA In-Game Inference AI Plugins</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+  <span>&nbsp;</span>
+</li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nvidia-in-game-inference-ai-plugins">
+<h1>NVIDIA In-Game Inference AI Plugins<a class="headerlink" href="#nvidia-in-game-inference-ai-plugins" title="Permalink to this headline"></a></h1>
+<p>Version 1.1.0 Release</p>
+<p>In-Game Inferencing (NVIGI) is an open-sourced cross platform solution that simplifies integration of the latest NVIDIA and other provider’s technologies into applications and games. This framework allows developers to easily implement one single integration and enable multiple technologies supported by the hardware vendor or cloud provider. Supported technologies include AI inference but, due to the generic nature of the NVIGI SDK, can be expanded to graphics or any other field of interest.</p>
+<p>For high-level details of NVIGI, as well as links to the official downloads for the product, see <a class="reference external" href="https://developer.nvidia.com/rtx/in-game-inferencing">NVIDIA In-Game Inferencing</a></p>
+<p>This directory contains the main AI plugins for integrating In-Game Inferencing-based AI workflows into your application.</p>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+For important changes and bug fixes included in the current release, please see the release notes at the end of this document BEFORE use.</p>
+</div></blockquote>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<section id="hardware">
+<h3>Hardware<a class="headerlink" href="#hardware" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>NVIDIA RTX 30x0/A6000 series or (preferably) RTX 4080/4090 or RTX 5080/5090 with a minimum of 8GB and recommendation of 12GB VRAM.</p></li>
+</ul>
+<blockquote>
+<div><p>NOTE: Some plugins only support RTX 40x0 and above, and will not be available on RTX 30x0.</p>
+</div></blockquote>
+</section>
+<section id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Win10 20H1 (version 2004 - 10.0.19041) or newer</p></li>
+<li><p>Install graphics driver r555.85 or newer</p></li>
+<li><p>Install VS Code or VS2019/VS2022 with <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=2120843">SDK 10.0.19041+</a></p></li>
+</ul>
+</section>
+<section id="nvigi-components">
+<h3>NVIGI Components<a class="headerlink" href="#nvigi-components" title="Permalink to this headline"></a></h3>
+<p>NVIGI consists of several independent components, of which this SDK directory is only one.  Normally, several of these components are used together, and in many cases, developers will actually receive a combined, “standard-layout” pack that is easier to use out of the box.  This SDK directory contains plugins focused upon AI inference, especially speech recognition, large language models, and embeddings.  It relies upon and requires the NVIGI core APIs, which are shipped as <code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code>.  NVIGI core is documented in detail in its own documentation, which should be available in the current pack in a layout described below.  Developers should read the documentation in <code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code> to gain a basic understanding of the overall architecture into which the plugins in this and other packs plug into.</p>
+</section>
+</section>
+<section id="directory-setup">
+<h2>DIRECTORY SETUP<a class="headerlink" href="#directory-setup" title="Permalink to this headline"></a></h2>
+<p>Using the NVIGI SDK plugins is much easier if the SDK plugins and nvigi_core are in standard layout.  If you received your NVIGI pack as a single zip or download and ran the <code class="docutils literal notranslate"><span class="pre">setup_links.bat</span></code> that is proivided and documented in that pack, it is likely already in standard layout with all required links.  Specifically, the directory layout should include (<strong>there will be other directories and files in the pack</strong>, but we do not care about these for the purposes of this document)</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code> (The NVIGI core framework; headers, libraries, DLLs)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugins/</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">sdk</span></code> (this directory, containing AI inference plugins, or the “SDK plugins”)</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">data/</span></code></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvigi.models</span></code> (the models directory)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvigi.test</span></code> (the test/sample data directory)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>With these directories as siblings, setup becomes easier and some things will “just work”</p>
+<p>In the following instructions,</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;NVIGI_ROOT&gt;</span></code> assuming so-called “standard layout” described above, this is the root under which <code class="docutils literal notranslate"><span class="pre">plugins</span></code>, <code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code> etc are found.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code> should be replaced with the full path to your NVIGI SDK directory.</p>
+<ul>
+<li><p>(Likely this is equal to <code class="docutils literal notranslate"><span class="pre">&lt;NVIGI_ROOT&gt;/plugins/sdk</span></code>)</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;SDK_MODELS&gt;</span></code> refers to the location of the <code class="docutils literal notranslate"><span class="pre">nvigi.models</span></code> AI models directory.</p>
+<ul>
+<li><p>This is available in <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;/data/nvigi.models</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;SDK_TEST&gt;</span></code> refers to the location of the <code class="docutils literal notranslate"><span class="pre">nvigi.test</span></code> AI test data directory.</p>
+<ul>
+<li><p>This is available in <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;/data/nvigi.test</span></code></p></li>
+</ul>
+</li>
+</ul>
+<p>Thus, a standard-layout pack would look like this:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>&lt;NVIGI_ROOT&gt;/
+    nvigi_core
+    plugins
+        <span class="nv">sdk</span> <span class="o">==</span> &lt;SDK_PLUGINS&gt;
+            nvigi_core  <span class="o">(</span>junction link to ..<span class="se">\.</span>.<span class="se">\n</span>vigi_core<span class="o">)</span>
+            data
+                nvigi.models <span class="o">==</span> &lt;SDK_MODELS&gt;
+                    <span class="o">(</span>plugin names<span class="o">)</span>
+                nvigi.test <span class="o">==</span> &lt;SDK_TEST&gt;
+                    <span class="o">(</span>plugin names<span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="basic-steps-summary">
+<h2>Basic Steps: Summary<a class="headerlink" href="#basic-steps-summary" title="Permalink to this headline"></a></h2>
+<p>The following sections detail each of the steps of how to set up, rebuild and run the samples in this pack from the debugger or command line.  But the basic steps are:</p>
+<ol class="arabic simple">
+<li><p>Generate the project files</p>
+<ol class="arabic simple">
+<li><p>Open a VS2022 Development Command Prompt to the SDK (a.k.a. <code class="docutils literal notranslate"><span class="pre">plugins/sdk</span></code>) directory</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">setup.bat</span></code></p></li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<div><p>NOTE:
+If <code class="docutils literal notranslate"><span class="pre">setup.bat</span></code> fails with an error from the <code class="docutils literal notranslate"><span class="pre">packman</span></code> package downloader, please re-run <code class="docutils literal notranslate"><span class="pre">setup.bat</span></code> again as there are rare but possible issues with link-creation on initial run.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Build the project</p>
+<ol class="arabic simple">
+<li><p>Launch VS2022</p></li>
+<li><p>Load <code class="docutils literal notranslate"><span class="pre">sdk/_project/vs2022/nvigi.sln</span></code> as the workspace</p></li>
+<li><p>Build the Release configuration</p></li>
+</ol>
+</li>
+<li><p>Copy the updated binaries into the expected, packaged locations</p>
+<ol class="arabic simple">
+<li><p>Open a (or use an existing) VS2022 Development Command Prompt to the SDK (a.k.a. <code class="docutils literal notranslate"><span class="pre">plugins/sdk</span></code>) directory</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">copy_sdk_binaries.bat</span> <span class="pre">Release</span></code></p></li>
+</ol>
+</li>
+<li><p>Run the sample (assumes that the models have been downloaded as per initial setup instructions)</p>
+<ol class="arabic simple">
+<li><p>Open a (or use an existing) VS2022 Development Command Prompt to the SDK (a.k.a. <code class="docutils literal notranslate"><span class="pre">plugins/sdk</span></code>) directory</p></li>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">bin\x64\nvigi.basic.exe</span> <span class="pre">--models</span> <span class="pre">data\nvigi.models</span></code></p></li>
+</ol>
+</li>
+</ol>
+</section>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline"></a></h2>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+As noted above, there must be a junction link from <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;/nvigi_core</span></code> to your copy of <code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code>.  If you are using a standard layout pack and have run the supplied/documented setup script, this link should alread exist.  If not, you will need to run the following in the <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code> directory: <code class="docutils literal notranslate"><span class="pre">mklink</span> <span class="pre">/j</span> <span class="pre">nvigi_core</span> <span class="pre">&lt;path</span> <span class="pre">to</span> <span class="pre">copy</span> <span class="pre">of</span> <span class="pre">nvigi_core&gt;</span></code></p>
+</div></blockquote>
+<p>To setup the NVIGI repository for building and running the Samples, open a command prompt window or PowerShell to the <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code> directory and simply run the following command:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>setup.bat
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+These steps are listed in the following section are done for you by the <code class="docutils literal notranslate"><span class="pre">setup.bat</span></code> script - <strong>do not run these steps manually/individually</strong>.  This is merely to explain what is happening for you.</p>
+</div></blockquote>
+<p>When you run the <code class="docutils literal notranslate"><span class="pre">setup.bat</span></code> script, the script will cause two things to be done for you:</p>
+<ol class="arabic simple">
+<li><p>The NVIDIA tool <code class="docutils literal notranslate"><span class="pre">packman</span></code> will pull all build dependencies to the local machine and cache them in a shared directory.  Links will be created from <code class="docutils literal notranslate"><span class="pre">external</span></code> in the NVIGI tree to this shared cache for external build dependencies.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">premake</span></code> will generate the project build files in <code class="docutils literal notranslate"><span class="pre">_project\vs20XX</span></code> (for Windows)</p></li>
+</ol>
+<blockquote>
+<div><p>NOTE:
+If <code class="docutils literal notranslate"><span class="pre">setup.bat</span></code> fails with an error from the <code class="docutils literal notranslate"><span class="pre">packman</span></code> package downloader, please re-run <code class="docutils literal notranslate"><span class="pre">setup.bat</span></code> again as there are rare but possible issues with link-creation on initial run.</p>
+</div></blockquote>
+</section>
+<section id="building">
+<h2>Building<a class="headerlink" href="#building" title="Permalink to this headline"></a></h2>
+<p>To build the project, simply open <code class="docutils literal notranslate"><span class="pre">_project\vs20XX\nvigi.sln</span></code> in Visual Studio, select the desired build configuration and build.</p>
+<blockquote>
+<div><p>NOTE: To build the project minimal configuration is needed. Any version of Windows 10 will do. Then
+run the setup and build scripts as described here above. That’s it. The specific version of Windows, and NVIDIA driver
+are all runtime dependencies, not compile/link time dependencies. This allows NVIGI to build on stock
+virtual machines that require zero configuration.</p>
+</div></blockquote>
+</section>
+<section id="installing-built-binaries">
+<h2>“Installing” Built Binaries<a class="headerlink" href="#installing-built-binaries" title="Permalink to this headline"></a></h2>
+<p>Once you build your own binaries, either the SDK DLLs or the Sample executable, those will reside in <code class="docutils literal notranslate"><span class="pre">_artifacts</span></code>, not <code class="docutils literal notranslate"><span class="pre">bin\x64</span></code>.  After building any configuration (Release, Debug, etc), you will need to run the <code class="docutils literal notranslate"><span class="pre">copy_sdk_binaries.bat</span> <span class="pre">&lt;cfg&gt;</span></code> script.  If you build the Release config, this would be:</p>
+<ol class="arabic simple">
+<li><p>Open a command prompt to the SDK root</p></li>
+<li><p>run <code class="docutils literal notranslate"><span class="pre">copy_sdk_binaries.bat</span> <span class="pre">Release</span></code></p></li>
+</ol>
+<p>This will copy the core lib, the DLLs and the exes to <code class="docutils literal notranslate"><span class="pre">bin\x64</span></code> and should be done before trying the next section.</p>
+</section>
+<section id="samples">
+<h2>Samples<a class="headerlink" href="#samples" title="Permalink to this headline"></a></h2>
+<p>Setting up and running the samples as shipped pre-built or built using the instructions above is discussed in detail in <a class="reference internal" href="docs/Samples.html"><span class="doc std std-doc">Samples</span></a></p>
+</section>
+<section id="changing-an-existing-project">
+<h2>Changing an Existing Project<a class="headerlink" href="#changing-an-existing-project" title="Permalink to this headline"></a></h2>
+<blockquote>
+<div><p>IMPORTANT: Do not edit the MSVC project files directly!  Always modify the <code class="docutils literal notranslate"><span class="pre">premake.lua</span></code> or files in <code class="docutils literal notranslate"><span class="pre">premake</span></code>.</p>
+</div></blockquote>
+<p>When changing an existing project’s settings or contents (ie: adding a new source file, changing a compiler setting, linking to a new library, etc), it is necessary to run <code class="docutils literal notranslate"><span class="pre">setup.bat</span></code> again for those changes to take effect and MSVC project files and or solution will need to be reloaded in the IDE.</p>
+<blockquote>
+<div><p>NOTE: NVIDIA does not recommend making changes to the headers in <code class="docutils literal notranslate"><span class="pre">include</span></code>, as these can affect the API itself and can make developer-built components incompatible with NVIDIA-supplied components.</p>
+</div></blockquote>
+</section>
+<section id="programming-guides">
+<h2>Programming Guides<a class="headerlink" href="#programming-guides" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="docs/ProgrammingGuideASRWhisper.html"><span class="doc std std-doc">Automatic Speech Recognition</span></a></p></li>
+<li><p><a class="reference internal" href="docs/ProgrammingGuideEmbed.html"><span class="doc std std-doc">Embedding</span></a></p></li>
+<li><p><a class="reference internal" href="docs/ProgrammingGuideGPT.html"><span class="doc std std-doc">Generative Pre-Trained Transformer</span></a></p></li>
+</ul>
+</section>
+<section id="sample-app-and-source">
+<h2>Sample App and Source<a class="headerlink" href="#sample-app-and-source" title="Permalink to this headline"></a></h2>
+<p>A 3D-rendered sample application using In-Game Inferencing may be found in most SDK packs.  If the pack is in standard layout, this will be in a sibling directory of <code class="docutils literal notranslate"><span class="pre">sdk</span></code> called <code class="docutils literal notranslate"><span class="pre">sample</span></code>.  There is a <code class="docutils literal notranslate"><span class="pre">README</span></code> in that directory with detailed instructions.</p>
+</section>
+<section id="release-notes">
+<h2>Release Notes:<a class="headerlink" href="#release-notes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>A significant change in the Beta 1 release compared to early-access releases is that independent components of NVIGI have been split into their own directories.  Specifically, the core APIs and core DLLs for NVIGI are now in the <code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code> package, and the AI Plugins are in <code class="docutils literal notranslate"><span class="pre">SDK</span></code>.  The Beta 1 pack generally ships all of these, zipped as sibling directories, in a single release pack.  However, future releases may be decoupled, especially w.r.t. <code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code>, which should change much less frequently.  Additional, new plugins may also be distributed independently.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+<img src="../../_static/NVIDIA-LogoBlack.svg" class="only-light"/>
+<img src="../../_static/NVIDIA-LogoWhite.svg" class="only-dark"/>
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright &#169; 2024-2025, NVIDIA Corporation.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Mar 13, 2025.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+</body>
+</html>

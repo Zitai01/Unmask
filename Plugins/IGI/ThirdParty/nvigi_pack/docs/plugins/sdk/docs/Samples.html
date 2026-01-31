@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plugin SDK Command-line Samples &mdash; In-Game Inferencing SDK 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/pygments_dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/theme-switcher-general.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/omni-style-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/api-styles-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/omni-style.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/api-styles.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/mermaid-init.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/theme-setter.js"></script>
+        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/version.js"></script>
+        <script src="../../../_static/social-media.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+ 
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+<a href="../../../index.html">
+  <img src="../../../_static/nvidia-logo-white.png" class="logo" alt="Logo"/>
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../NVIGIDeveloperPack.html">NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sample/README.html">NVIGI 3D Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/GpuSchedulingForAI.html">GPU Scheduling for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/ProgrammingGuide.html">NVIGI - Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/ProgrammingGuideAI.html">NVIGI - Programming Guide For Local And Cloud Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">NVIDIA In-Game Inference AI Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ProgrammingGuideASRWhisper.html">Automatic Speech Recognition (ASR) - Whisper Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ProgrammingGuideGPT.html">Generative Pre-Trained Transformers (GPT) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ProgrammingGuideEmbed.html">Embedding (EMBED) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source-build/README.html">NVIGI Public Source GitHub Pull-and-Build Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomizingPlugins.html">Creating a Customized Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3rd-party-licenses.html">3rd PARTY SOFTWARE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">In-Game Inferencing SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+<li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+  
+<li>Plugin SDK Command-line Samples</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+  <span>&nbsp;</span>
+</li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="plugin-sdk-command-line-samples">
+<h1>Plugin SDK Command-line Samples<a class="headerlink" href="#plugin-sdk-command-line-samples" title="Permalink to this headline"></a></h1>
+<p>The NVIGI Plugins SDK includes a set of command-line samples that show the basics of several common app use cases.  The following sections describe how to configure and run these samples, whether they were shipped in a binary “standard layout” app development pack or built from the public GitHub source tree.</p>
+<section id="configuring-and-running-the-basic-sample">
+<h2>Configuring and Running the Basic Sample<a class="headerlink" href="#configuring-and-running-the-basic-sample" title="Permalink to this headline"></a></h2>
+<p>The basic sample, <code class="docutils literal notranslate"><span class="pre">nvigi.basic</span></code> shows the basics of running a workflow of WAV (microphone) audio -&gt; ASR (speech recognition) -&gt; GPT (LLM).  It is automatically built as a part of the SDK build.  It allows direct typing “to” the LLM or “talking to” the LLM via a microphone and ASR.</p>
+<p>Because of the SDK layout, once the components are built they will be under the <code class="docutils literal notranslate"><span class="pre">_artifacts</span></code> tree; in order for the SDK to run an app like the sample, all of these DLLs and the executable must be in the same directory.  We do this by copying the DLLs and EXE into the <code class="docutils literal notranslate"><span class="pre">bin\x64</span></code> directory, and running the app from within that directory, so all plugins are available.</p>
+<p>Normally, whether the plugins have been built from a binary, “standard layout” app developer pack or from GitHub source, this is done via the <code class="docutils literal notranslate"><span class="pre">copy_sdk_binaries.bat</span></code>, whose use is described in the base documentation for the binary app developer pack or GitHub README.  The rest of this document assumes that the binaries are up to date and have been copied.</p>
+<p>These instructions make reference to a set of directories; the location of these directories differ between binary app developer pack and GitHub source.  The documentation for each of these define the locations for these directories in the particular use:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code>: the root of the SDK Plugins tree, which contains the <code class="docutils literal notranslate"><span class="pre">bin</span></code> directory for the plugins</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;SDK_MODELS&gt;</span></code>: the root of the models tree for the SDK plugins, normally named <code class="docutils literal notranslate"><span class="pre">nvigi.models</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&lt;SDK_TEST&gt;</span></code>: : the root of the test data tree for the SDK plugins, normally named <code class="docutils literal notranslate"><span class="pre">nvigi.test</span></code></p></li>
+</ul>
+<section id="download-required-models">
+<h3>Download Required Models<a class="headerlink" href="#download-required-models" title="Permalink to this headline"></a></h3>
+<p>The basic sample requires the following models:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Plugin</p></th>
+<th class="head"><p>Model Name</p></th>
+<th class="head"><p>GUID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nvigi.plugin.asr.ggml.*</p></td>
+<td><p>Whisper Small</p></td>
+<td><p>5CAD3A03-1272-4D43-9F3D-655417526170</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvigi.plugin.gpt.ggml.*</p></td>
+<td><p>Llama3.2 3b Instruct</p></td>
+<td><p>01F43B70-CE23-42CA-9606-74E80C5ED0B6</p></td>
+</tr>
+</tbody>
+</table>
+<p>See the top-level documentation that shipped with your development pack for information on how to download these models.</p>
+</section>
+<section id="cloud-models">
+<h3>Cloud Models<a class="headerlink" href="#cloud-models" title="Permalink to this headline"></a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Plugin</p></th>
+<th class="head"><p>Model Name</p></th>
+<th class="head"><p>GUID</p></th>
+<th class="head"><p>URL</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nvigi.plugin.gpt.cloud.rest</p></td>
+<td><p>gpt-3.5-turbo</p></td>
+<td><p>E9102ACB-8CD8-4345-BCBF-CCF6DC758E58</p></td>
+<td><p>https://api.openai.com/v1/chat/completions</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvigi.plugin.gpt.cloud.rest</p></td>
+<td><p>Llama 3.2 3B Instruct</p></td>
+<td><p>01F43B70-CE23-42CA-9606-74E80C5ED0B6</p></td>
+<td><p>https://integrate.api.nvidia.com/v1/chat/completions</p></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<div><p>NOTE: These are just two popular models, for more details on model repository please read the <code class="docutils literal notranslate"><span class="pre">ProgrammingGuideAI</span></code> located in the NVIGI Core SDK.</p>
+</div></blockquote>
+</section>
+<section id="how-to-use-the-basic-sample">
+<h3>How to Use the Basic Sample<a class="headerlink" href="#how-to-use-the-basic-sample" title="Permalink to this headline"></a></h3>
+<p>When run, the sample should launch a console (or use the one from which it was run); it will await user input.  The user may do one of three things at the prompt:</p>
+<ul class="simple">
+<li><p>Type a chat query as text and press enter.  This will be passed directly to the LLM and the LLM response printed.</p></li>
+<li><p>Type an exit command; “Q”, “q” or “quit”.  This will cause the sample to exit.</p></li>
+<li><p>Press enter with no text.  This will start recording from the default Windows/DirectX recording device (e.g. a headset microphone).  Pressing enter again will stop recording.  Once the recording is complete, the audio will be sent to the ASR plugin and then the result of ASR printed to the console and passed to the LLM for response.</p></li>
+</ul>
+</section>
+<section id="run-at-command-line">
+<h3>Run at Command Line<a class="headerlink" href="#run-at-command-line" title="Permalink to this headline"></a></h3>
+<p>To run <code class="docutils literal notranslate"><span class="pre">nvigi.basic</span></code> from the command line, take the following steps (<code class="docutils literal notranslate"><span class="pre">--models</span></code> is a required argument):</p>
+<ol class="arabic simple">
+<li><p>Open a command prompt in <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code></p></li>
+<li><p>Run the command:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bin<span class="se">\x</span><span class="m">64</span><span class="se">\n</span>vigi.basic.exe --models &lt;SDK_MODELS&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>In a standard layout binary development pack or GitHub source tree, launching from a current working directory of the <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code> directory, this is:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bin<span class="se">\x</span><span class="m">64</span><span class="se">\n</span>vigi.basic.exe --models data/nvigi.models
+</pre></div>
+</div>
+<p>Here are the command line options:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Usage: nvigi.basic [options]</span>
+
+<span class="go">  -m, --models              model repo location (REQUIRED)</span>
+<span class="go">  --asr-guid                asr model guid in registry format (default: {5CAD3A03-1272-4D43-9F3D-655417526170})</span>
+<span class="go">  -a, --audio               audio file location (default: )</span>
+<span class="go">  --gpt                     gpt mode, &#39;local&#39; or &#39;cloud&#39; - model GUID determines the cloud endpoint (default: local)</span>
+<span class="go">  --gpt-guid                gpt model guid in registry format (default: {01F43B70-CE23-42CA-9606-74E80C5ED0B6})</span>
+<span class="go">  -s, --sdk                 sdk location, (default: exe location)</span>
+<span class="go">  -t, --token               authorization token for the cloud provider (default: )</span>
+<span class="go">  --vram                    the amount of vram to use in MB (default: 8192)</span>
+</pre></div>
+</div>
+</section>
+<section id="run-in-debugger">
+<h3>Run in Debugger<a class="headerlink" href="#run-in-debugger" title="Permalink to this headline"></a></h3>
+<p>To run <code class="docutils literal notranslate"><span class="pre">nvigi.basic</span></code> in the debugger, we must ensure that all of the plugins and the <code class="docutils literal notranslate"><span class="pre">nvigi.basic.exe</span></code> app are copied into one directory, the SDK bin directory.  Then, MSVC’s debugger must know to launch the copy, not the original, or it will not find the plugins.  Take the following steps:</p>
+<ol class="arabic simple">
+<li><p>One-time setup in the project file (needs to be redone if <code class="docutils literal notranslate"><span class="pre">_project</span></code> is deleted):</p>
+<ol class="arabic simple">
+<li><p>In the MSVC IDE, edit the project config settings for <code class="docutils literal notranslate"><span class="pre">aiinferencemananger/samples/nvigi.basic</span></code></p></li>
+<li><p>Navigate to the “Debugging” settings</p></li>
+<li><p>Set “Command” to <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;\bin\x64\nvigi.basic.exe</span></code></p></li>
+<li><p>Set “Command Arguments” as needed (see the command line options in the above section)</p></li>
+<li><p>Set “Working Directory” to <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;/bin/x64</span></code></p></li>
+</ol>
+</li>
+<li><p>Build the desired non-production config of the SDK; Release is recommended (it is optimized, but contains symbols)</p></li>
+<li><p>After each (re-)build, re-run <code class="docutils literal notranslate"><span class="pre">copy_sdk_binaries.bat</span> <span class="pre">&lt;cfg&gt;</span></code></p></li>
+<li><p>The sample can now be run in the debugger.</p></li>
+</ol>
+</section>
+</section>
+<section id="configuring-and-running-the-pipeline-sample">
+<h2>Configuring and Running the Pipeline Sample<a class="headerlink" href="#configuring-and-running-the-pipeline-sample" title="Permalink to this headline"></a></h2>
+<p>The AI Pipeline sample, <code class="docutils literal notranslate"><span class="pre">nvigi.pipeline</span></code> shows the basics of running a multi-plugin workflow via a single eval call using the pipeline plugin.  In this case, the workflow is WAV (file) audio -&gt; ASR (speech recognition) -&gt; GPT (LLM).  It is automatically built as a part of the SDK build.  It runs multiple AI plugins in a single evaluate call, using the AI Pipeline plugin.</p>
+<p>Because of the SDK layout, once the components are built they will be under the <code class="docutils literal notranslate"><span class="pre">_artifacts</span></code> tree; in order for the SDK to run an app like the sample, all of these DLLs and the executable must be in the same directory.  We do this by copying the DLLs and EXE into the <code class="docutils literal notranslate"><span class="pre">bin\x64</span></code> directory, and running the app from within that directory, so all plugins are available.</p>
+<section id="id1">
+<h3>Download Required Models<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<p>The pipeline sample requires the following models:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Plugin</p></th>
+<th class="head"><p>Model Name</p></th>
+<th class="head"><p>GUID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nvigi.plugin.asr.ggml.*</p></td>
+<td><p>Whisper)</p></td>
+<td><p>5CAD3A03-1272-4D43-9F3D-655417526170</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvigi.plugin.gpt.ggml.*</p></td>
+<td><p>Llama3.2 3b Instruct</p></td>
+<td><p>01F43B70-CE23-42CA-9606-74E80C5ED0B6</p></td>
+</tr>
+</tbody>
+</table>
+<p>See the top-level documentation that shipped with your development pack for information on how to download these models.</p>
+</section>
+<section id="how-to-use-the-pipeline-sample">
+<h3>How to Use the Pipeline Sample<a class="headerlink" href="#how-to-use-the-pipeline-sample" title="Permalink to this headline"></a></h3>
+<p>When run, the sample will load the specified wav file and pass it through a pipeline of ASR followed by an LLM, logging the result of each step.</p>
+</section>
+<section id="id2">
+<h3>Run at Command Line<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<p>To run <code class="docutils literal notranslate"><span class="pre">nvigi.pipeline</span></code> from the command line, take the following steps:</p>
+<ol class="arabic simple">
+<li><p>Open a command prompt in <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code></p></li>
+<li><p>Run the command:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bin<span class="se">\x</span><span class="m">64</span><span class="se">\n</span>vigi.pipeline.exe &lt;SDK_MODELS&gt; &lt;SDK_TEST&gt;/nvigi.asr/jfk.wav
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>In a standard layout binary development pack or GitHub source tree, launching from a current working directory of the <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code> directory, this is:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bin<span class="se">\x</span><span class="m">64</span><span class="se">\n</span>vigi.pipeline.exe data/nvigi.models data/nvigi.test/nvigi.asr/jfk.wav
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>Run in Debugger<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<p>To run <code class="docutils literal notranslate"><span class="pre">nvigi.pipeline</span></code> in the debugger, we must ensure that all of the plugins and the <code class="docutils literal notranslate"><span class="pre">nvigi.pipeline.exe</span></code> app are copied into one directory, the SDK bin directory.  Then, MSVC’s debugger must know to launch the copy, not the original, or it will not find the plugins.  Take the following steps:</p>
+<ol class="arabic simple">
+<li><p>One-time setup in the project file (needs to be redone if <code class="docutils literal notranslate"><span class="pre">_project</span></code> is deleted):</p>
+<ol class="arabic simple">
+<li><p>In the MSVC IDE, edit the project config settings for <code class="docutils literal notranslate"><span class="pre">aiinferencemananger/samples/nvigi.pipeline</span></code></p></li>
+<li><p>Navigate to the “Debugging” settings</p></li>
+<li><p>Set “Command” to <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;\bin\x64\nvigi.pipeline.exe</span></code></p></li>
+<li><p>Set “Command Arguments” to <code class="docutils literal notranslate"><span class="pre">&lt;SDK_MODELS&gt;</span> <span class="pre">&lt;SDK_TEST&gt;/nvigi.asr/jfk.wav</span> <span class="pre">(use</span> <span class="pre">forward</span> <span class="pre">slashes</span> <span class="pre">in</span> <span class="pre">all</span> <span class="pre">cases)</span></code> (use forward slashes in all cases)</p></li>
+<li><p>Set “Working Directory” to <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;/bin/x64</span></code></p></li>
+</ol>
+</li>
+<li><p>Build the desired non-production config of the SDK; Release is recommended (it is optimized, but contains symbols)</p></li>
+<li><p>After each (re-)build, re-run <code class="docutils literal notranslate"><span class="pre">copy_sdk_binaries.bat</span> <span class="pre">&lt;cfg&gt;</span></code></p></li>
+<li><p>The sample can now be run in the debugger.</p></li>
+</ol>
+</section>
+</section>
+<section id="configuring-and-running-the-rag-sample">
+<h2>Configuring and Running the RAG Sample<a class="headerlink" href="#configuring-and-running-the-rag-sample" title="Permalink to this headline"></a></h2>
+<p>The RAG sample, <code class="docutils literal notranslate"><span class="pre">nvigi.rag</span></code> shows an example of an LLM-based chatbot that uses RAG to provide the LLM with detailed context from which it should answer questions.  The built-in system prompt and provided context text (<code class="docutils literal notranslate"><span class="pre">data/nvigi.test/nvigi.rag/LegendOfDoria_Corpus.txt</span></code>) file describes a fantasy game world.  The user can type in questions that will be passed to the LLM to be answered in-game.</p>
+<p>Because of the SDK layout, once the components are built they will be under the <code class="docutils literal notranslate"><span class="pre">_artifacts</span></code> tree; in order for the SDK to run an app like the sample, all of these DLLs and the executable must be in the same directory.  We do this by copying the DLLs and EXE into the <code class="docutils literal notranslate"><span class="pre">bin\x64</span></code> directory, and running the app from within that directory, so all plugins are available.</p>
+<section id="id4">
+<h3>Download Required Models<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<p>The RAG sample requires the following models:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Plugin</p></th>
+<th class="head"><p>Model Name</p></th>
+<th class="head"><p>GUID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nvigi.plugin.embed.ggml.*</p></td>
+<td><p>E5 Large Unsupervised</p></td>
+<td><p>5D458A64-C62E-4A9C-9086-2ADBF6B241C7</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvigi.plugin.gpt.ggml.*</p></td>
+<td><p>Nemotron Mini 4B</p></td>
+<td><p>8E31808B-C182-4016-9ED8-64804FF5B40D</p></td>
+</tr>
+</tbody>
+</table>
+<p>See the top-level documentation that shipped with your development pack for information on how to download these models.</p>
+</section>
+<section id="how-to-use-the-rag-sample">
+<h3>How to Use the RAG Sample<a class="headerlink" href="#how-to-use-the-rag-sample" title="Permalink to this headline"></a></h3>
+<p>When run, the sample should launch a console (or use the one from which it was run); it will await user input.  The user may do one of two things:</p>
+<ul class="simple">
+<li><p>Type in “exit” then Enter, which will exit the sample</p></li>
+<li><p>Type in a Question to the LLM, which will answer them based upon context passed in via the provided text file.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h3>Run at Command Line<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<p>To run <code class="docutils literal notranslate"><span class="pre">nvigi.rag</span></code> from the command line, take the following steps:</p>
+<ol class="arabic simple">
+<li><p>Open a command prompt in <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code></p></li>
+<li><p>Run the command:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bin<span class="se">\x</span><span class="m">64</span><span class="se">\n</span>vigi.rag.exe &lt;SDK_MODELS&gt; &lt;text file&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>In a standard layout binary development pack or GitHub source tree, launching from a current working directory of the <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;</span></code> directory, this might be:</p></li>
+</ol>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>bin<span class="se">\x</span><span class="m">64</span><span class="se">\n</span>vigi.rag.exe data/nvigi.models data/nvigi.test/nvigi.rag/LegendOfDoria_Corpus.txt
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>Run in Debugger<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<p>To run <code class="docutils literal notranslate"><span class="pre">nvigi.rag</span></code> in the debugger, we must ensure that all of the plugins and the <code class="docutils literal notranslate"><span class="pre">nvigi.rag.exe</span></code> app are copied into one directory, the SDK bin directory.  Then, MSVC’s debugger must know to launch the copy, not the original, or it will not find the plugins.  Take the following steps:</p>
+<ol class="arabic simple">
+<li><p>One-time setup in the project file (needs to be redone if <code class="docutils literal notranslate"><span class="pre">_project</span></code> is deleted):</p>
+<ol class="arabic simple">
+<li><p>In the MSVC IDE, edit the project config settings for <code class="docutils literal notranslate"><span class="pre">aiinferencemananger/samples/nvigi.rag</span></code></p></li>
+<li><p>Navigate to the “Debugging” settings</p></li>
+<li><p>Set “Command” to <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;/bin/x64/nvigi.rag.exe</span></code></p></li>
+<li><p>Set “Command Arguments” to <code class="docutils literal notranslate"><span class="pre">&lt;SDK_MODELS&gt;</span> <span class="pre">&lt;text</span> <span class="pre">file&gt;</span></code> (use forward slashes in all cases)</p></li>
+<li><p>Set “Working Directory” to <code class="docutils literal notranslate"><span class="pre">&lt;SDK_PLUGINS&gt;/bin/x64</span></code></p></li>
+</ol>
+</li>
+<li><p>Build the desired non-production config of the SDK; Release is recommended (it is optimized, but contains symbols)</p></li>
+<li><p>After each (re-)build, re-run <code class="docutils literal notranslate"><span class="pre">copy_sdk_binaries.bat</span> <span class="pre">&lt;cfg&gt;</span></code></p></li>
+<li><p>The sample can now be run in the debugger.</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+<img src="../../../_static/NVIDIA-LogoBlack.svg" class="only-light"/>
+<img src="../../../_static/NVIDIA-LogoWhite.svg" class="only-dark"/>
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright &#169; 2024-2025, NVIDIA Corporation.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Mar 13, 2025.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+</body>
+</html>

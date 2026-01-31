@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release &mdash; In-Game Inferencing SDK 1.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments_dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme-switcher-general.css" type="text/css" />
+      <link rel="stylesheet" href="_static/omni-style-dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/api-styles-dark.css" type="text/css" />
+      <link rel="stylesheet" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="_static/omni-style.css" type="text/css" />
+      <link rel="stylesheet" href="_static/api-styles.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/mermaid-init.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+        <script src="_static/theme-setter.js"></script>
+        <script src="_static/design-tabs.js"></script>
+        <script src="_static/version.js"></script>
+        <script src="_static/social-media.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="NVIGI 3D Sample" href="sample/README.html" />
+    <link rel="prev" title="In-Game Inferencing SDK (IGI)" href="index.html" />
+ 
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+<a href="index.html">
+  <img src="_static/nvidia-logo-white.png" class="logo" alt="Logo"/>
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#what-is-nvigi">What is NVIGI?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-current-release-of-the-developer-pack">The Current Release of the Developer Pack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#where-do-i-start">Where Do I Start?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-models">Getting Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#cloud-models">Cloud Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manually-downloadable-public-models">Manually-Downloadable, Public Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#important-documentation-in-the-developer-pack">Important Documentation in the Developer Pack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contents-of-the-developer-pack">Contents of the Developer Pack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-issues-and-important-notes">Known Issues and Important Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#release">1.1.0 Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">1.0.0 Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#beta-1">Beta 1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sample/README.html">NVIGI 3D Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html">GPU Scheduling for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html">NVIGI - Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nvigi_core/docs/ProgrammingGuideAI.html">NVIGI - Programming Guide For Local And Cloud Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/README.html">NVIDIA In-Game Inference AI Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html">Automatic Speech Recognition (ASR) - Whisper Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html">Generative Pre-Trained Transformers (GPT) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html">Embedding (EMBED) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source-build/README.html">NVIGI Public Source GitHub Pull-and-Build Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/docs/CustomizingPlugins.html">Creating a Customized Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins/sdk/3rd-party-licenses.html">3rd PARTY SOFTWARE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">In-Game Inferencing SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+<li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+  
+<li>NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+  <span>&nbsp;</span>
+</li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nvidia-in-game-inferencing-nvigi-developer-pack-1-1-0-release">
+<h1>NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release<a class="headerlink" href="#nvidia-in-game-inferencing-nvigi-developer-pack-1-1-0-release" title="Permalink to this headline"></a></h1>
+<section id="what-is-nvigi">
+<h2>What is NVIGI?<a class="headerlink" href="#what-is-nvigi" title="Permalink to this headline"></a></h2>
+<p>The NVIDIA In-Game Inferencing (NVIGI) SDK streamlines AI model deployment and integration for PC application developers. The SDK pre-configures the PC with the necessary AI models, engines, and dependencies. It orchestrates AI inference seamlessly across PC and cloud from a unified inference API. And it supports all major inference backends, across different hardware accelerators (GPU, NPU, CPU).</p>
+<p>The system is meant to be integrated into end-user applications and games to provide selection between running models locally or in the cloud (i.e. hybrid).</p>
+<p>High level objectives are:</p>
+<ul class="simple">
+<li><p>Allow models to execute across a variety of backends, devices and runtimes</p></li>
+<li><p>Support a wide range of models and pipelines</p></li>
+<li><p>Provide a seamless way for application developers to run in cloud or locally</p></li>
+<li><p>Efficient in-app integration</p></li>
+</ul>
+<p>The NVIDIA IGI SDK  is architected as a suite of plugins, containing both core inferencing plugins as well as helper plugins, that is to be integrated into end-user applications. . The “helper” plugins are shared amongst the various inference plugins. Examples of “helper” plugins include network functionalities like gRPC or D3D12 device/queue/command list management for integration of 3D workloads and AI workloads. Core AI inferencing plugins  implement many different models using multiple runtimes, but all of them share the same creation and inference APIs as one another. As a result, all of the LLM plugins and all of the ASR (Speech Recognition) plugins share functionality-specific APIs and can be easily swapped in and out for one another by an application with minor  code modifications. All of this is possible with the core plugin architecture by creating interfaces that are shared by all plugins that implement the specific functionality.</p>
+</section>
+<section id="the-current-release-of-the-developer-pack">
+<h2>The Current Release of the Developer Pack<a class="headerlink" href="#the-current-release-of-the-developer-pack" title="Permalink to this headline"></a></h2>
+<p>The NVIDIA IGI Developer Pack is a release of several components: the IGI SDK, a 3D Sample and models that is designed to show the architecture and application integration of NVIGI with interactive applications. The pack supports a group of local inference plugins along with a cloud inference plugin.  The set of plugins includes:</p>
+<ul class="simple">
+<li><p>GGML-based LLMs on CPU or GPU (CUDA) <a class="reference external" href="https://github.com/ggerganov/ggml">https://github.com/ggerganov/ggml</a></p></li>
+<li><p>GGML-based Speech Recognition on CPU or GPU (CUDA) <a class="reference external" href="https://github.com/ggerganov/whisper.cpp">https://github.com/ggerganov/whisper.cpp</a></p></li>
+<li><p>GGML-based embeddings on CPU or GPU (CUDA)</p></li>
+<li><p>ONNX GenAI Runtime-based LLMs on GPU (<a class="reference external" href="https://github.com/microsoft/DirectML">DirectML</a>) <a class="reference external" href="https://github.com/microsoft/onnxruntime-genai">https://github.com/microsoft/onnxruntime-genai</a></p></li>
+<li><p>NVIDIA Cloud-based GPT/LLM inference via <a class="reference external" href="https://build.nvidia.com/explore/discover">https://build.nvidia.com/explore/discover</a></p></li>
+<li><p>GPU scheduling optimizations with 3D workloads <a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html"><span class="doc std std-doc">nvigi_core/docs/GpuSchedulingForAI</span></a></p></li>
+</ul>
+<p>In addition, several samples exist in two locations.  Source code for the samples is provided, precompiled, which allow for instant experimentation with the plugins.:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="plugins/sdk/README.html"><span class="doc std std-doc">Command-line samples</span></a> for specific plugins, located in <code class="docutils literal notranslate"><span class="pre">plugins/SDK/source/samples</span></code> with (pre-)built binaries in <code class="docutils literal notranslate"><span class="pre">plugins/SDK/bin/x64</span></code>.  These include:</p>
+<ul>
+<li><p><strong>Basic (nvigi.basic):</strong> A command-line sample that shows the use of individual ASR and GPT plugins to implement conversational AI.  The user can provide input by typing their queries or by using a microphone to pass their verbal query to speech recognition.  The GPT plugin will respond to the query, with conversational context.  The GPT plugin may be switched from local to cloud models via the command line.</p></li>
+<li><p><strong>Pipeline (nvigi.pipeline):</strong> A command-line sample that shows the use of a pipeline plugin, capable of running a sequence of ASR and GPT plugins via a single evaluation call.  This sample uses audio input from an audio file</p></li>
+<li><p><strong>RAG (nvigi.rag):</strong> A command-line sample that shows how to use GPT and embedding to implement Retrieval Automated Generation, or RAG.  Specifically, the sample takes a text file to use as its reference, or “corpus” when answering queries, along with a prompt to guide how it uses the corpus.  The user may type in queries for the RAG.</p></li>
+</ul>
+</li>
+<li><p>A 3D sample exists in a top-level <code class="docutils literal notranslate"><span class="pre">sample</span></code> directory.  It includes a wider range of plugins, as well as a GUI for interaction and a 3D scene rendered at the same time</p>
+<ul>
+<li><p>Support for local and cloud GPT</p></li>
+<li><p>Support for ASR via GUI-based recording.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="where-do-i-start">
+<h2>Where Do I Start?<a class="headerlink" href="#where-do-i-start" title="Permalink to this headline"></a></h2>
+<p>The recommended order of “getting started” with the pack is to:</p>
+<ol class="arabic simple">
+<li><p>Read this entire document</p></li>
+<li><p><strong>Run the <code class="docutils literal notranslate"><span class="pre">setup_links.bat</span></code> script in the top-level of this pack</strong>, which will create required cross-directory links that are needed by the various components (since links like these cannot be zipped)</p></li>
+<li><p>Download models as per the section <a class="reference internal" href="#getting-models"><span class="std std-doc">Getting Models</span></a>.  We recommend downloading all models available via <code class="docutils literal notranslate"><span class="pre">download.bat</span></code> files in the <code class="docutils literal notranslate"><span class="pre">nvigi.models</span></code> tree in order to be able to immediately run the 3D Sample and all command-line samples.  We have also provided a script in the top level of this pack, <code class="docutils literal notranslate"><span class="pre">download_data.bat</span></code> which will download <strong>all</strong> supported models.  Note that this script must be run <strong>after</strong> <code class="docutils literal notranslate"><span class="pre">setup_links.bat</span></code>, and will require pressing the <code class="docutils literal notranslate"><span class="pre">Enter</span></code> key after each downloaded model.  <strong>Downloading all of the models via the <code class="docutils literal notranslate"><span class="pre">download_data.bat</span></code> script will require approximately 9-10GB of disk space.</strong></p></li>
+<li><p>Read the <a class="reference internal" href="#known-issues-and-important-notes"><span class="std std-doc">release notes and known issues</span></a> sections at the end of this document</p></li>
+<li><p>Read the <a class="reference internal" href="sample/README.html"><span class="doc std std-doc">3D Sample’s docs</span></a> in detail and follow its instructions, especially those for things such as setting up API keys for the Cloud GPT Plugin.</p></li>
+<li><p>Run the precompiled 3D Sample and interact with it as described in the <a class="reference internal" href="sample/README.html"><span class="doc std std-doc">3D Sample’s docs </span></a></p></li>
+<li><p>Read the documentation on how to run the command-line SDK Plugins samples,  <a class="reference internal" href="plugins/sdk/docs/Samples.html#configuring-and-running-the-basic-sample"><span class="std std-doc">Basic sample (<code class="docutils literal notranslate"><span class="pre">nvigi.basic.exe</span></code>)</span></a>, <a class="reference internal" href="plugins/sdk/docs/Samples.html#configuring-and-running-the-pipeline-sample"><span class="std std-doc">Pipeline sample (<code class="docutils literal notranslate"><span class="pre">nvigi.pipeline.exe</span></code>)</span></a> and <a class="reference internal" href="plugins/sdk/docs/Samples.html#configuring-and-running-the-rag-sample"><span class="std std-doc">RAG sample (<code class="docutils literal notranslate"><span class="pre">nvigi.rag.exe</span></code>)</span></a></p></li>
+<li><p>Review the SDK documentation for the other components, which should be linked from this top-level document (<a class="reference internal" href="nvigi_core/docs/ProgrammingGuide.html"><span class="doc std std-doc">NVIGI Core</span></a>, <a class="reference internal" href="plugins/sdk/README.html"><span class="doc std std-doc">SDK Plugins docs</span></a>)</p></li>
+<li><p>Review the source code of the NVIGI integration into the 3D Sample by reviewing the source code in <code class="docutils literal notranslate"><span class="pre">sample/src/nvigi/NVIGIContext.[cpp,</span> <span class="pre">h]</span></code></p></li>
+<li><p>Review the API headers in the <code class="docutils literal notranslate"><span class="pre">include</span></code> subdirectories of the core and plugin components (<code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code>, <code class="docutils literal notranslate"><span class="pre">plugins/sdk</span></code>)</p></li>
+<li><p>Follow the <a class="reference internal" href="sample/README.html"><span class="doc std std-doc">3D Sample docs</span></a> instructions to rebuild the 3D Sample from its source and run it in the debugger, allowing for easy stepping through the code to better understand how it integrates with the SDK</p></li>
+</ol>
+</section>
+<section id="getting-models">
+<h2>Getting Models<a class="headerlink" href="#getting-models" title="Permalink to this headline"></a></h2>
+<p>In order to avoid making the standard layout pack very large, the pack does not include any model data files.  Models for NVIGI fall into one of a few categories</p>
+<ul class="simple">
+<li><p><strong>Cloud models</strong>; these consist only of a configuration JSON file.  These are shipped with this pack under <code class="docutils literal notranslate"><span class="pre">nvigi.models/&lt;plugin</span> <span class="pre">name&gt;/{model</span> <span class="pre">GUID}</span></code></p></li>
+<li><p><strong>Manually-downloadable, public models</strong>; these consist of a configuration JSON file and a Windows batch file <code class="docutils literal notranslate"><span class="pre">download.bat</span></code>.  These are shipped in this pack under <code class="docutils literal notranslate"><span class="pre">nvigi.models/&lt;plugin</span> <span class="pre">name&gt;/{model</span> <span class="pre">GUID}</span></code>, and the <code class="docutils literal notranslate"><span class="pre">download.bat</span></code> can be double-clicked to use <code class="docutils literal notranslate"><span class="pre">curl</span></code> to download the model without any form of authentication.  In some cases, the batch file will also extract the required files from zip, if the downloaded file is a zipfile.  Depending upon the security settings on the local system, Windows may ask for confirmation when running the batch file.</p></li>
+</ul>
+<section id="cloud-models">
+<h3>Cloud Models<a class="headerlink" href="#cloud-models" title="Permalink to this headline"></a></h3>
+<p>The supported cloud models in this release include:</p>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Plugin</p></th>
+<th class="head"><p>Model Name</p></th>
+<th class="head"><p>GUID</p></th>
+<th class="head"><p>URL</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nvigi.plugin.gpt.cloud.rest</p></td>
+<td><p>Llama3.2 3b Instruct</p></td>
+<td><p>01F43B70-CE23-42CA-9606-74E80C5ED0B6</p></td>
+<td><p>https://integrate.api.nvidia.com/v1/chat/completions</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Nemotron Mini 4B</p></td>
+<td><p>8E31808B-C182-4016-9ED8-64804FF5B40D</p></td>
+<td><p>https://integrate.api.nvidia.com/v1/chat/completions</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>gpt-3.5-turbo</p></td>
+<td><p>E9102ACB-8CD8-4345-BCBF-CCF6DC758E58</p></td>
+<td><p>https://api.openai.com/v1/chat/completions</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="manually-downloadable-public-models">
+<h3>Manually-Downloadable, Public Models<a class="headerlink" href="#manually-downloadable-public-models" title="Permalink to this headline"></a></h3>
+<table class="colwidths-auto docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Plugin</p></th>
+<th class="head"><p>Model Name</p></th>
+<th class="head"><p>GUID</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nvigi.plugin.asr.ggml.*</p></td>
+<td><p>Whisper Small</p></td>
+<td><p>5CAD3A03-1272-4D43-9F3D-655417526170</p></td>
+</tr>
+<tr class="row-odd"><td><p>nvigi.plugin.embed.ggml.*</p></td>
+<td><p>E5 Large Unsupervised</p></td>
+<td><p>5D458A64-C62E-4A9C-9086-2ADBF6B241C7</p></td>
+</tr>
+<tr class="row-even"><td><p>nvigi.plugin.gpt.ggml.*</p></td>
+<td><p>Llama3.2 3b Instruct</p></td>
+<td><p>01F43B70-CE23-42CA-9606-74E80C5ED0B6</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Nemotron Mini 4B</p></td>
+<td><p>8E31808B-C182-4016-9ED8-64804FF5B40D</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Nemovision 4B Instruct FP16</p></td>
+<td><p>0BAEDD5C-F2CA-49AA-9892-621C40030D12</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Nemovision 4B Instruct Q4</p></td>
+<td><p>0BAEDD5C-F2CA-49AA-9892-621C40030D13</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="important-documentation-in-the-developer-pack">
+<h2>Important Documentation in the Developer Pack<a class="headerlink" href="#important-documentation-in-the-developer-pack" title="Permalink to this headline"></a></h2>
+<p>The main documentation for using the pack includes:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="sample/README.html"><span class="doc std std-doc">3D Sample</span></a></p>
+<ul>
+<li><p>The best “starting” doc, as the sample is provided pre-compiled and ready-to-run.  It describes how to run, recompile, and debug in the sample, which shows both speech recognition and LLMs for text interaction.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code></p>
+<ul>
+<li><p>Detailed documentation on the components of the NVIGI core library, including:</p></li>
+<li><p><a class="reference internal" href="nvigi_core/docs/Architecture.html"><span class="doc std std-doc">Architecture Guide</span></a></p>
+<ul>
+<li><p>Discusses the high-level architecture of the entire SDK, the data flow, etc</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="nvigi_core/docs/GpuSchedulingForAI.html"><span class="doc std std-doc">GPU Scheduling For AI Guide</span></a></p>
+<ul>
+<li><p>A detailed document on how advanced applications can assist in causing GPU AI work to be best scheduled along with 3D work</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="plugins/sdk/README.html"><span class="doc std std-doc">Plugin SDK Guide</span></a></p>
+<ul>
+<li><p>The core documentation for getting started with the details of the AI plguins.  This describes how to run a set of much more minimal samples and how to run the samples in the debugger.</p></li>
+<li><p>Detailed documentation on the components of the SDK plugins, including:</p></li>
+<li><p><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideASRWhisper.html"><span class="doc std std-doc">ASR Whisper Plugins Programming Guide</span></a></p>
+<ul>
+<li><p>Detailed docs on how to program for the speech recognition plugins</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideEmbed.html"><span class="doc std std-doc">Embedding Plugin Programming Guide</span></a></p>
+<ul>
+<li><p>Detailed documentation on how to program for the Embedding plugins</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="plugins/sdk/docs/ProgrammingGuideGPT.html"><span class="doc std std-doc">GPT Plugins Programming Guide</span></a></p>
+<ul>
+<li><p>Detailed documentation on how to program for the GPT/LLM plugins</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="contents-of-the-developer-pack">
+<h2>Contents of the Developer Pack<a class="headerlink" href="#contents-of-the-developer-pack" title="Permalink to this headline"></a></h2>
+<p>The pack consists of:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code>: The NVIGI Core components, including:</p>
+<ul>
+<li><p>The headers, libraries and DLLs that make up the main functionality of NVIGI</p></li>
+<li><p>Basic documentation on the core architecture</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plugins/sdk</span></code>: The AI Plugins, including:</p>
+<ul>
+<li><p>The headers (<code class="docutils literal notranslate"><span class="pre">include</span></code>) and DLLs (<code class="docutils literal notranslate"><span class="pre">bin/x64</span></code>) that comprise the AI Plugin functionalities such as ASR, GPT, and Embedding.</p></li>
+<li><p>Basic, precompiled command-line samples (<code class="docutils literal notranslate"><span class="pre">source/samples</span></code> and <code class="docutils literal notranslate"><span class="pre">bin/x64</span></code>) that run a sequence of AI workloads</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sample</span></code>: The 3D Sample, including:</p>
+<ul>
+<li><p>A precompiled, runnable 3D+GUI sample that allows easy experimentation with components of the SDK, including speech input and text input to an LLM</p></li>
+<li><p>Source code for the sample</p></li>
+<li><p>Build files to allow the source to be rebuilt as desired</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvigi.models</span></code>: AI Models for use with the above, including:</p>
+<ul>
+<li><p>Llama-3 GPT LLM, downloadable manually</p></li>
+<li><p>Whisper Speech Recognition, downloadable manually</p></li>
+<li><p>Note that this is a junction link, generated by <code class="docutils literal notranslate"><span class="pre">setup_links.bat</span></code>.  It points into the <code class="docutils literal notranslate"><span class="pre">plugins/sdk/data/nvigi.models</span></code> directory.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvigi.test</span></code>: Basic AI Test Data, including:</p>
+<ul>
+<li><p>A WAV file for use as input to speech recognition in the command-line sample</p></li>
+<li><p>Note that this is a junction link, generated by <code class="docutils literal notranslate"><span class="pre">setup_links.bat</span></code>.  It points into the <code class="docutils literal notranslate"><span class="pre">plugins/sdk/data/nvigi.test</span></code> directory.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs</span></code>: Documentation for all of the above components, repackaged and linked from this top-level document.</p></li>
+</ul>
+</section>
+<section id="known-issues-and-important-notes">
+<h2>Known Issues and Important Notes<a class="headerlink" href="#known-issues-and-important-notes" title="Permalink to this headline"></a></h2>
+<section id="release">
+<h3>1.1.0 Release<a class="headerlink" href="#release" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>TBD</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>1.0.0 Release<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Initial public release</p></li>
+</ul>
+</section>
+<section id="beta-1">
+<h3>Beta 1<a class="headerlink" href="#beta-1" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>A significant change in the Beta 1 release compared to early-access releases is that independent components of NVIGI have been split into their own directories.  Specifically, the core APIs and core DLLs for NVIGI are now in the <code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code> package, and the AI Plugins are in <code class="docutils literal notranslate"><span class="pre">SDK</span></code>.  The Beta 1 pack generally ships all of these, zipped as sibling directories, in a single release pack.  However, future releases may be decoupled, especially w.r.t. <code class="docutils literal notranslate"><span class="pre">nvigi_core</span></code>, which should change much less frequently.  Additional, new plugins may also be distributed independently.</p></li>
+<li><p>Owing to a quirk of conversational/interactive mode in GGML, the GGML GPT plugin can in some cases produce truncated responses or an empty response.  This can be seen in the Basic Sample or in the 3D Sample if the user interacts with the GPT for several iterations without resetting the conversation.  If desired, the frequency of this can be lowered by increasing the <code class="docutils literal notranslate"><span class="pre">nvigi::GPTRuntimeParameters::tokensToPredict</span></code> value.  A solution to this is being investigated.</p></li>
+<li><p>When using CiG, it is currently important to keep a reference to the <code class="docutils literal notranslate"><span class="pre">nvigi::plugin::hwi::cuda</span></code> for the life of the application.  This ensures that if plugins using CiG are created and destroyed multiple times, the shared CUDA context stays active.  It is important that the <code class="docutils literal notranslate"><span class="pre">nvigi::plugin::hwi::cuda</span></code> plugin not be unloaded and reloaded multiple times in the application.  Keeping a reference via an active interface for the life of the application will do this.  See the CiG code in the 3D Sample for an example of this.</p></li>
+<li><p>The OnnxGenAI Mistral Model responses can include some “system” text; a potential fix to the plugin is being investigated.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+<img src="_static/NVIDIA-LogoBlack.svg" class="only-light"/>
+<img src="_static/NVIDIA-LogoWhite.svg" class="only-dark"/>
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright &#169; 2024-2025, NVIDIA Corporation.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Mar 13, 2025.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+</body>
+</html>

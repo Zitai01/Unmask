@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Embedding (EMBED) Programming Guide &mdash; In-Game Inferencing SDK 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/pygments_dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/theme-switcher-general.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/omni-style-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/api-styles-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/omni-style.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/api-styles.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/mermaid-init.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/theme-setter.js"></script>
+        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/version.js"></script>
+        <script src="../../../_static/social-media.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="NVIGI Public Source GitHub Pull-and-Build Scripts" href="../../../source-build/README.html" />
+    <link rel="prev" title="Generative Pre-Trained Transformers (GPT) Programming Guide" href="ProgrammingGuideGPT.html" />
+ 
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+<a href="../../../index.html">
+  <img src="../../../_static/nvidia-logo-white.png" class="logo" alt="Logo"/>
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../NVIGIDeveloperPack.html">NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sample/README.html">NVIGI 3D Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/GpuSchedulingForAI.html">GPU Scheduling for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/ProgrammingGuide.html">NVIGI - Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/ProgrammingGuideAI.html">NVIGI - Programming Guide For Local And Cloud Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">NVIDIA In-Game Inference AI Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ProgrammingGuideASRWhisper.html">Automatic Speech Recognition (ASR) - Whisper Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ProgrammingGuideGPT.html">Generative Pre-Trained Transformers (GPT) Programming Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Embedding (EMBED) Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-1-0-general-access">Version 1.1.0 General Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initialize-and-shutdown">1.0 INITIALIZE AND SHUTDOWN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#obtain-embed-interface-s">2.0 OBTAIN EMBED INTERFACE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-embed-instance-s">3.0 CREATE EMBED INSTANCE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-callback-to-receive-inferred-data">4.0 SETUP CALLBACK TO RECEIVE INFERRED DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-the-execution-context-and-execute-inference">5.0 PREPARE THE EXECUTION CONTEXT AND EXECUTE INFERENCE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#do-something-with-the-embedding">6.0 Do something with the embedding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#use-it-to-match-a-player-s-answer-to-a-set-of-predefined-answers">6.1 Use it to match a player’s answer to a set of predefined answers.</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#destroy-instance-s">7.0 DESTROY INSTANCE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unload-interface-s">8.0 UNLOAD INTERFACE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exceptions">9.0 Exceptions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source-build/README.html">NVIGI Public Source GitHub Pull-and-Build Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomizingPlugins.html">Creating a Customized Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3rd-party-licenses.html">3rd PARTY SOFTWARE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">In-Game Inferencing SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+<li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+  
+<li>Embedding (EMBED) Programming Guide</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+  <span>&nbsp;</span>
+</li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="embedding-embed-programming-guide">
+<h1>Embedding (EMBED) Programming Guide<a class="headerlink" href="#embedding-embed-programming-guide" title="Permalink to this headline"></a></h1>
+<p>The focus of this guide is on using In-Game Inferencing to integrate an embedding model into an application. One example would be <a class="reference external" href="https://huggingface.co/intfloat/e5-large-unsupervised">E5-Large-Unsupervised</a></p>
+<blockquote>
+<div><p><strong>IMPORTANT</strong>: This guide might contain pseudo code, for the up to date implementation and source code which can be copy pasted please see the <a class="reference download internal" download="" href="../../../_downloads/fb5836567baa6c7cf78964e031adf322/rag.cpp"><span class="xref download myst">rag sample</span></a></p>
+</div></blockquote>
+<section id="version-1-1-0-general-access">
+<h2>Version 1.1.0 General Access<a class="headerlink" href="#version-1-1-0-general-access" title="Permalink to this headline"></a></h2>
+</section>
+<section id="initialize-and-shutdown">
+<h2>1.0 INITIALIZE AND SHUTDOWN<a class="headerlink" href="#initialize-and-shutdown" title="Permalink to this headline"></a></h2>
+<p>Please read the <code class="docutils literal notranslate"><span class="pre">docs/ProgrammingGuide.md</span></code> located in the NVIGI Core package to learn more about initializing and shutting down NVIGI SDK. <a class="reference internal" href="../../../nvigi_core/docs/ProgrammingGuide.html"><span class="doc std std-doc">Which may be found here in combined binary packs</span></a></p>
+</section>
+<section id="obtain-embed-interface-s">
+<h2>2.0 OBTAIN EMBED INTERFACE(S)<a class="headerlink" href="#obtain-embed-interface-s" title="Permalink to this headline"></a></h2>
+<p>Next, we need to retrieve EMBED’s API interface based on what variant we need (cloud, CUDA etc.).  <strong>NOTE</strong> only the local inference plugins are provided/supported in this early release.  The cloud plugins will be added in a later release:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">nvigi</span><span class="o">::</span><span class="n">IEmbed</span><span class="w"> </span><span class="n">iembedLocal</span><span class="p">{};</span><span class="w"></span>
+<span class="c1">// Here we are requesting interface for the GGML_CUDA implementation</span>
+<span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">nvigiGetInterface</span><span class="p">(</span><span class="n">nvigi</span><span class="o">::</span><span class="n">plugin</span><span class="o">::</span><span class="n">embed</span><span class="o">::</span><span class="n">ggml</span><span class="o">::</span><span class="n">cuda</span><span class="p">,</span><span class="w"> </span><span class="n">iembedLocal</span><span class="p">))</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;NVIGI call failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">nvigi</span><span class="o">::</span><span class="n">IEmbed</span><span class="w"> </span><span class="n">iembedCloud</span><span class="p">{};</span><span class="w"></span>
+<span class="c1">// Here we are requesting interface for the GFN cloud implementation (NOT IMPLEMENTED YET)</span>
+<span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">nvigiGetInterface</span><span class="p">(</span><span class="n">nvigi</span><span class="o">::</span><span class="n">plugin</span><span class="o">::</span><span class="n">embed</span><span class="o">::</span><span class="n">gfn</span><span class="o">::</span><span class="n">nvcf</span><span class="o">::</span><span class="n">kId</span><span class="p">,</span><span class="w"> </span><span class="n">iembedCloud</span><span class="p">))</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;NVIGI call failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>NOTE:</strong>
+One can only obtain interface for a feature which is available on user system. Interfaces are valid as long as the underlying plugin is loaded and active.</p>
+</div></blockquote>
+</section>
+<section id="create-embed-instance-s">
+<h2>3.0 CREATE EMBED INSTANCE(S)<a class="headerlink" href="#create-embed-instance-s" title="Permalink to this headline"></a></h2>
+<p>Now that we have our interface we can use it to create our EMBED instance. To do this, we need to provide information about Embedding model we want to use, CPU/GPU resources which are available and various other creation parameters.</p>
+<blockquote>
+<div><p><strong>NOTE</strong> only the local inference plugins are provided/supported in this early release.  The cloud plugins will be added in a later release.</p>
+</div></blockquote>
+<p>Here is an example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//! Here we are creating two instances for different backends/APIs</span>
+<span class="c1">//!</span>
+<span class="c1">//! IMPORTANT: This is totally optional and only used to demonstrate runtime switching between different backends</span>
+
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceInstance</span><span class="o">*</span><span class="w"> </span><span class="n">embedInstanceLocal</span><span class="p">;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">//! Creating local instance and providing our D3D12 or VK and CUDA information (all optional)</span>
+<span class="w">    </span><span class="c1">//!</span>
+<span class="w">    </span><span class="c1">//! This allows host to control how instance interacts with DirectX, Vulkan (if at all) or any existing CUDA contexts (if any)</span>
+<span class="w">    </span><span class="c1">//!</span>
+<span class="w">    </span><span class="c1">//! Note that providing DirectX/Vulkan information is mandatory if at runtime we expect instance to run on a command list.</span>
+
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">EmbedCreationParameters</span><span class="w"> </span><span class="n">params</span><span class="p">{};</span><span class="w">    </span>
+
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">CommonCreationParameters</span><span class="w"> </span><span class="n">common</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="n">common</span><span class="p">.</span><span class="n">numThreads</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myNumCPUThreads</span><span class="p">;</span><span class="w"> </span><span class="c1">// How many CPU threads is instance allowed to use</span>
+<span class="w">    </span><span class="n">common</span><span class="p">.</span><span class="n">vramBudgetMB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myVRAMBudget</span><span class="p">;</span><span class="w">  </span><span class="c1">// How much VRAM is instance allowed to occupy</span>
+<span class="w">    </span><span class="n">common</span><span class="p">.</span><span class="n">utf8PathToModels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myPathToNVIGIModelRepository</span><span class="p">;</span><span class="w"> </span><span class="c1">// Path to provided NVIGI model repository (using UTF-8 encoding)</span>
+<span class="w">    </span><span class="n">common</span><span class="p">.</span><span class="n">modelGUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{5D458A64-C62E-4A9C-9086-2ADBF6B241C7}&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Model GUID for e5-large-unsupervised, for details please see NVIGI models repository</span>
+
+<span class="w">    </span><span class="n">params</span><span class="p">.</span><span class="n">chain</span><span class="p">(</span><span class="n">common</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">//! OPTIONAL PSEUDO CODE - ONLY FOR ILLUSTRATION ON WHAT IS POSSIBLE</span>
+
+<span class="w">    </span><span class="c1">// D3D12 creation parameters - tell our instance what device, adapter etc it should use or attach CUDA to</span>
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">D3D12Parameters</span><span class="w"> </span><span class="n">d3d12</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="n">d3d12</span><span class="p">.</span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myDevice</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">d3d12</span><span class="p">.</span><span class="n">adapter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myAdapter</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">d3d12</span><span class="p">.</span><span class="n">cmdQueue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCmdQueue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">d3d12</span><span class="p">.</span><span class="n">cmdList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCmdList</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// Vulkan creation parameters - tell our instance what device, adapter etc it should use or attach CUDA to</span>
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">VulkanParameters</span><span class="w"> </span><span class="n">vk</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="n">vk</span><span class="p">.</span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myDevice</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">vk</span><span class="p">.</span><span class="n">physicalDevice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myPhysicalDevice</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">vk</span><span class="p">.</span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myInstance</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">vk</span><span class="p">.</span><span class="n">cmdQueue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myQueue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">vk</span><span class="p">.</span><span class="n">cmdBuffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCmdBuffer</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// CUDA creation parameters - tell our instance what context, streams to use</span>
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">CUDAParameters</span><span class="w"> </span><span class="n">cuda</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="n">cuda</span><span class="p">.</span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCUDAContext</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">cuda</span><span class="p">.</span><span class="n">stream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myStream</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">//! Example of how optional parameters can be chained as needed - most likely one would not be using d3d12, cuda and vk at the same time</span>
+<span class="w">    </span><span class="n">params</span><span class="p">.</span><span class="n">chain</span><span class="p">(</span><span class="n">d3d12</span><span class="p">)</span><span class="w"> </span><span class="c1">// or vk or cuda depending</span>
+
+<span class="w">    </span><span class="c1">//! Query capabilities/models list and find the model we are interested in to use that index to find what embedding size our output data should be in.</span>
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">EmbedCapabilitiesAndRequirements</span><span class="o">*</span><span class="w"> </span><span class="n">info</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="n">getCapsAndRequirements</span><span class="p">(</span><span class="n">iembedLocal</span><span class="p">,</span><span class="w"> </span><span class="n">params1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">info</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">numSupportedModels</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">strcmp</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">supportedModelGUIDs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">params1</span><span class="p">.</span><span class="n">common</span><span class="o">-&gt;</span><span class="n">modelGUID</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">embedding_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">embedding_numel</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">            </span><span class="n">max_position_embeddings</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">max_position_embeddings</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w"></span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">embedding_size</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">REQUIRE</span><span class="p">(</span><span class="n">max_position_embeddings</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">iembedLocal</span><span class="p">.</span><span class="n">createInstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">embedInstanceLocal</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;NVIGI call failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceInstance</span><span class="o">*</span><span class="w"> </span><span class="n">embedInstanceCloud</span><span class="p">;</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Note that CUDA and DirectX info here make no sense hence it is not provided</span>
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">EmbedCreationParameters</span><span class="w"> </span><span class="n">params</span><span class="p">{};</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">CommonCreationParameters</span><span class="w"> </span><span class="n">common</span><span class="p">{};</span><span class="w">    </span>
+<span class="w">    </span><span class="n">common</span><span class="p">.</span><span class="n">modelGUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{5D458A64-C62E-4A9C-9086-2ADBF6B241C7}&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Model GUID for e5-large-unsupervised, the exact same model is running in the GFN docker</span>
+
+<span class="w">    </span><span class="n">params</span><span class="p">.</span><span class="n">chain</span><span class="p">(</span><span class="n">common</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">//! Cloud parameters</span>
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">RESTParameters</span><span class="w"> </span><span class="n">nvcfParams</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">token</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">getEnvVar</span><span class="p">(</span><span class="s">&quot;MY_TOKEN&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">token</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">nvcfParams</span><span class="p">.</span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myURL</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">nvcfParams</span><span class="p">.</span><span class="n">authenticationToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">token</span><span class="p">.</span><span class="n">c_str</span><span class="p">();</span><span class="w"></span>
+<span class="w">    </span><span class="n">params</span><span class="p">.</span><span class="n">chain</span><span class="p">(</span><span class="n">nvcfParams</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">iembedCloud</span><span class="p">.</span><span class="n">createInstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">embedInstanceCloud</span><span class="p">,</span><span class="w"> </span><span class="n">inputs</span><span class="p">,</span><span class="w"> </span><span class="n">countof</span><span class="p">(</span><span class="n">inputs</span><span class="p">))))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;NVIGI call failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>NOTE:</strong>
+NVIGI model repository is provided with the pack in nvigi.models.</p>
+</div></blockquote>
+</section>
+<section id="setup-callback-to-receive-inferred-data">
+<h2>4.0 SETUP CALLBACK TO RECEIVE INFERRED DATA<a class="headerlink" href="#setup-callback-to-receive-inferred-data" title="Permalink to this headline"></a></h2>
+<p>In order to receive transcribed text from the Embedding model inference a special callback needs to be setup like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">atomic</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="w"> </span><span class="n">embed_done</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">false</span><span class="p">;</span><span class="w"></span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceExecutionState</span><span class="w"> </span><span class="nf">embedOnComplete</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceExecutionContext</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceExecutionState</span><span class="w"> </span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">auto</span><span class="w"> </span><span class="n">slots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ctx</span><span class="o">-&gt;</span><span class="n">outputs</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">auto</span><span class="o">&amp;</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">*</span><span class="p">)</span><span class="n">data</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataByteArray</span><span class="o">*</span><span class="w"> </span><span class="n">output_embedding</span><span class="p">{};</span><span class="w"></span>
+<span class="w">        </span><span class="n">slots</span><span class="o">-&gt;</span><span class="n">findAndValidateSlot</span><span class="p">(</span><span class="n">nvigi</span><span class="o">::</span><span class="n">kEmbedDataSlotOutEmbedding</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">output_embedding</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">CpuData</span><span class="o">*</span><span class="w"> </span><span class="n">cpuBuffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">castTo</span><span class="o">&lt;</span><span class="n">CpuData</span><span class="o">&gt;</span><span class="p">(</span><span class="n">output_embedding</span><span class="o">-&gt;</span><span class="n">bytes</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">fp32Buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)(</span><span class="n">cpuBuffer</span><span class="o">-&gt;</span><span class="n">buffer</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">embed_done</span><span class="p">.</span><span class="n">store</span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceExecutionStateDone</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">state</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+Input and output data slots provided within the execution context are <strong>only valid during the callback execution</strong>. Host application must be ready to handle callbacks until reaching <code class="docutils literal notranslate"><span class="pre">nvigi::InferenceExecutionStateDone</span></code> or <code class="docutils literal notranslate"><span class="pre">nvigi::InferenceExecutionStateCancel</span></code> state.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>NOTE:</strong>
+To cancel EMBED inference make sure to return <code class="docutils literal notranslate"><span class="pre">nvigi::InferenceExecutionStateCancel</span></code> state in the callback.</p>
+</div></blockquote>
+</section>
+<section id="prepare-the-execution-context-and-execute-inference">
+<h2>5.0 PREPARE THE EXECUTION CONTEXT AND EXECUTE INFERENCE<a class="headerlink" href="#prepare-the-execution-context-and-execute-inference" title="Permalink to this headline"></a></h2>
+<p>Before EMBED can be evaluated the <code class="docutils literal notranslate"><span class="pre">nvigi::InferenceExecutionContext</span></code> needs to be defined. Among other things, this includes specifying input and output slots.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Use nvigi::prompt_sep to separate prompts</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Here one prompt.&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">prompt_sep</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;Here a second prompt.&quot;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">n_prompts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">countLines</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="n">prompts_sep</span><span class="p">);</span><span class="w"></span>
+<span class="n">output_embeddings</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span><span class="w"></span>
+
+<span class="n">output_embeddings</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="n">n_prompts</span><span class="o">*</span><span class="n">embedding_size</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataTextSTLHelper</span><span class="w"> </span><span class="nf">input_prompt</span><span class="p">(</span><span class="n">input</span><span class="p">);</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataSlot</span><span class="o">&gt;</span><span class="w"> </span><span class="n">inSlots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="n">nvigi</span><span class="o">::</span><span class="n">kEmbedDataSlotInText</span><span class="p">,</span><span class="w"> </span><span class="n">input_prompt</span><span class="p">}</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">InferenceDataSlotArray</span><span class="w"> </span><span class="n">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">inSlots</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">inSlots</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+
+<span class="c1">// If the output slots are not provided, NVIGI will allocate them. Alternatively, host can allocate and provide outputs as shown in the next lines</span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataByteArraySTLHelper</span><span class="w"> </span><span class="nf">output_param</span><span class="p">(</span><span class="n">output_embeddings</span><span class="p">);</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataSlot</span><span class="o">&gt;</span><span class="w"> </span><span class="n">outSlots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="n">nvigi</span><span class="o">::</span><span class="n">kEmbedDataSlotOutEmbedding</span><span class="p">,</span><span class="w"> </span><span class="n">output_param</span><span class="p">}</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">InferenceDataSlotArray</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">outSlots</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">outSlots</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceExecutionContext</span><span class="w"> </span><span class="n">embedContext</span><span class="p">{};</span><span class="w"></span>
+<span class="n">embedContext</span><span class="p">.</span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">embedInstanceLocal</span><span class="p">;</span><span class="w"> </span><span class="c1">// The instance we created and we want to run inference on</span>
+<span class="n">embedContext</span><span class="p">.</span><span class="n">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">embedOnComplete</span><span class="p">;</span><span class="w"></span>
+<span class="n">embedContext</span><span class="p">.</span><span class="n">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">inputs</span><span class="p">;</span><span class="w"></span>
+<span class="n">embedContext</span><span class="p">.</span><span class="n">outputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">outputs</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">//! IMPORTANT: The execution context and all provided data (input, output slots) must be valid at the time `instance-&gt;evaluate` is called</span>
+<span class="c1">// Evaluate our instance</span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">Result</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">embedContext</span><span class="p">.</span><span class="n">instance</span><span class="o">-&gt;</span><span class="n">evaluate</span><span class="p">(</span><span class="o">&amp;</span><span class="n">embedContext</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">//! IMPORTANT: Wait for the callback to receive nvigi::InferenceExecutionStateDone</span>
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">embed_done</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">ResultOk</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">continue</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">//! Now we have received the response from the Embedding model via our embedOnComplete Callback</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+The execution context and all provided data (input, output slots) must be valid at the time <code class="docutils literal notranslate"><span class="pre">instance-&gt;evaluate</span></code> is called</p>
+</div></blockquote>
+</section>
+<section id="do-something-with-the-embedding">
+<h2>6.0 Do something with the embedding<a class="headerlink" href="#do-something-with-the-embedding" title="Permalink to this headline"></a></h2>
+<p>In your execution pipeline, call <code class="docutils literal notranslate"><span class="pre">instance-&gt;evaluate</span></code> at the appropriate location where a prompt needs to be processed to receive a response from the EMBED.</p>
+<section id="use-it-to-match-a-player-s-answer-to-a-set-of-predefined-answers">
+<h3>6.1 Use it to match a player’s answer to a set of predefined answers.<a class="headerlink" href="#use-it-to-match-a-player-s-answer-to-a-set-of-predefined-answers" title="Permalink to this headline"></a></h3>
+<p>Imagine we are in a game where the player is asked a question. The game has a set of predefined answers, but we want to allow the player to respond freely. To match the player’s response with the closest predefined answer, we can use embeddings to analyze and compare the answers.</p>
+<p>Let’s suppose the game asks this question :</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="s">&quot;You come across a locked door with a numeric keypad. There is a note saying </span><span class="se">\&quot;</span><span class="s">The key is in the stars.</span><span class="se">\&quot;</span><span class="s"> What do you do?&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;A. Look for a constellation map&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;B. Try random numbers&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;C. Look for another way around&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;D. Give up&quot;</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The player answer : “I’d look up at the stars and try to find a clue.”</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Function to encode prompts</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="nf">encodePrompt</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w">  </span><span class="n">prompts</span><span class="p">){</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">full_prompts_str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i_prompt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i_prompt</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">prompts</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i_prompt</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">full_prompts_str</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">prompts</span><span class="p">[</span><span class="n">i_prompt</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i_prompt</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">prompts</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">full_prompts_str</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">prompts_sep</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">full_prompts_str</span><span class="p">;</span><span class="w"></span>
+
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// Let&#39;s prepare our prompts</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">predefined_answers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;A. Confront the butler&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;B. Search the kitchen&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;C. Investigate the study further&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s">&quot;D. Ask the maid if she saw anything&quot;</span><span class="w"></span>
+<span class="p">};</span><span class="w"></span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">player_answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;I&#39;d look up at the stars and try to find a clue.&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">predefined_answer_prompts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">encode_prompt</span><span class="p">(</span><span class="n">predefined_answers</span><span class="p">);</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">full_prompts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">predefined_answer_prompts</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">prompts_sep</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">player_answer</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">// Let&#39;s assume we encapsulated the evaluation in a function called embed (See Section 6)</span>
+<span class="n">embed</span><span class="p">(</span><span class="n">iembed</span><span class="p">,</span><span class="w"> </span><span class="n">instance</span><span class="p">,</span><span class="w"> </span><span class="n">full_prompts</span><span class="p">,</span><span class="w"> </span><span class="n">output_embeddings</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// Let&#39;s get the data and compute cosinus simularity between embeddings to match the closest answer</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">n_predefined_answers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">predefined_answers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="n">answer_start_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n_predefined_answers</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">embedding_size</span><span class="p">;</span><span class="w"></span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">embedding_answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">emb</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">answer_start_pos</span><span class="p">,</span><span class="w"> </span><span class="n">emb</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">answer_start_pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">embedding_size</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">Player given Answer : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">player_answer</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="n">max_score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="kt">int</span><span class="w"> </span><span class="n">max_score_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="c1">// Compute cosin similarity with each predefined answer</span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i_predefined_answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i_predefined_answer</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">predefined_answers</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">i_predefined_answer</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">predefined_answer_start_pos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i_predefined_answer</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">embedding_size</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="w"> </span><span class="n">embedding_predefined_answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">emb</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">predefined_answer_start_pos</span><span class="p">,</span><span class="w"> </span><span class="n">emb</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">predefined_answer_start_pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">embedding_size</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// You can find the code of this function here : source\samples\nvigi.rag\rag.cpp</span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">cosinScore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cosSimScore</span><span class="p">(</span><span class="n">embedding_answer</span><span class="p">,</span><span class="w"> </span><span class="n">embedding_predefined_answer</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cosinScore</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">max_score</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">max_score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cosinScore</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">max_score_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i_predefined_answer</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\t</span><span class="s">Cosine Similarity between the player answer and the prompt ( &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">questions</span><span class="p">[</span><span class="n">i_predefined_answer</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; ) : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">cosinScore</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="n">std</span><span class="o">::</span><span class="w"> </span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;The player has choosen the answer : &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">predefined_answers</span><span class="p">[</span><span class="n">max_score_index</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+The host app CANNOT assume that the inference callback will be invoked on the thread that calls <code class="docutils literal notranslate"><span class="pre">instance-&gt;evaluate</span></code>. In addition, inference (and thus callback invocations) is NOT guaranteed to be done when <code class="docutils literal notranslate"><span class="pre">instance-&gt;evaluate</span></code> returns.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="destroy-instance-s">
+<h2>7.0 DESTROY INSTANCE(S)<a class="headerlink" href="#destroy-instance-s" title="Permalink to this headline"></a></h2>
+<p>Once EMBED is no longer needed each instance should be destroyed like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//! Finally, we destroy our instance(s)</span>
+<span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">iembedLocal</span><span class="p">.</span><span class="n">destroyInstance</span><span class="p">(</span><span class="n">embedInstanceLocal</span><span class="p">)))</span><span class="w"> </span>
+<span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;NVIGI call failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">iembedCloud</span><span class="p">.</span><span class="n">destroyInstance</span><span class="p">(</span><span class="n">embedInstanceCloud</span><span class="p">)))</span><span class="w"> </span>
+<span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;NVIGI call failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="unload-interface-s">
+<h2>8.0 UNLOAD INTERFACE(S)<a class="headerlink" href="#unload-interface-s" title="Permalink to this headline"></a></h2>
+<p>Once EMBED is no longer needed each interface should be unloaded like this:</p>
+<p><strong>NOTE</strong> only the local inference plugins are provided/supported in this early release.  The cloud plugins will be added in a later release.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//! Finally, we destroy our instance(s)</span>
+<span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">nvigiUnloadInterface</span><span class="p">(</span><span class="n">nvigi</span><span class="o">::</span><span class="n">plugin</span><span class="o">::</span><span class="n">embed</span><span class="o">::</span><span class="n">gfn</span><span class="o">::</span><span class="n">nvcf</span><span class="o">::</span><span class="n">kId</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">iembedCloud</span><span class="p">)))</span><span class="w"> </span>
+<span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">//! Check error</span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">nvigiUnloadInterface</span><span class="p">(</span><span class="n">nvigi</span><span class="o">::</span><span class="n">plugin</span><span class="o">::</span><span class="n">embed</span><span class="o">::</span><span class="n">ggml</span><span class="o">::</span><span class="n">cuda</span><span class="o">::</span><span class="n">kId</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">iembedLocal</span><span class="p">)))</span><span class="w"> </span>
+<span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">//! Check error</span>
+<span class="p">}</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="exceptions">
+<h2>9.0 Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline"></a></h2>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+During the evalutions some errors can happen. In this case the Result of ctx.instance-&gt;evaluate(&amp;ctx) will not be nvigi::ResultOk</p>
+</div></blockquote>
+<p>It can be :</p>
+<ul class="simple">
+<li><p>nvigi::kResultOk : If everything goes well and embedding output has been generated.</p></li>
+<li><p>nvigi::kResultNonUtf8 : If an input prompt contains non-UTF8 characters, you can address it by either removing those characters or converting them to UTF8 using simple or advanced processing techniques.</p></li>
+<li><p>nvigi::kResultMaxTokensReached : If one prompt has reached the maximum number of tokens that the model can process. Reduce prompt length or switch to a model with a larger context size.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+<img src="../../../_static/NVIDIA-LogoBlack.svg" class="only-light"/>
+<img src="../../../_static/NVIDIA-LogoWhite.svg" class="only-dark"/>
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright &#169; 2024-2025, NVIDIA Corporation.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Mar 13, 2025.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+</body>
+</html>

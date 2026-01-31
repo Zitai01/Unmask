@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automatic Speech Recognition (ASR) - Whisper Programming Guide &mdash; In-Game Inferencing SDK 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/pygments_dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/theme-switcher-general.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/omni-style-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/api-styles-dark.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/omni-style.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/api-styles.css" type="text/css" />
+    <link rel="shortcut icon" href="../../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/mermaid-init.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+        <script src="../../../_static/theme-setter.js"></script>
+        <script src="../../../_static/design-tabs.js"></script>
+        <script src="../../../_static/version.js"></script>
+        <script src="../../../_static/social-media.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Generative Pre-Trained Transformers (GPT) Programming Guide" href="ProgrammingGuideGPT.html" />
+    <link rel="prev" title="NVIDIA In-Game Inference AI Plugins" href="../README.html" />
+ 
+
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+<a href="../../../index.html">
+  <img src="../../../_static/nvidia-logo-white.png" class="logo" alt="Logo"/>
+</a>
+
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../NVIGIDeveloperPack.html">NVIDIA In-Game Inferencing (NVIGI) Developer Pack 1.1.0 Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../sample/README.html">NVIGI 3D Sample</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/Architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/GpuSchedulingForAI.html">GPU Scheduling for AI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/ProgrammingGuide.html">NVIGI - Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nvigi_core/docs/ProgrammingGuideAI.html">NVIGI - Programming Guide For Local And Cloud Inference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../README.html">NVIDIA In-Game Inference AI Plugins</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Automatic Speech Recognition (ASR) - Whisper Programming Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#version-1-1-0-general-access">Version 1.1.0 General Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#initialize-and-shutdown">1.0 INITIALIZE AND SHUTDOWN</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#obtain-asr-interface">2.0 OBTAIN ASR INTERFACE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-asr-instance-s">3.0 CREATE ASR INSTANCE(S)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#obtain-capabilities-and-requirements-for-model-s">3.1 OBTAIN CAPABILITIES AND REQUIREMENTS FOR MODEL(S)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#local">LOCAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cloud-vram-ignored">CLOUD (VRAM ignored)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#create-model-instance">3.2 CREATE MODEL INSTANCE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#audio-input">4.0 AUDIO INPUT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#process-complete-audio-clip">4.1 PROCESS COMPLETE AUDIO CLIP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stream-audio">4.2 STREAM AUDIO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prepare-input-slot">4.3 PREPARE INPUT SLOT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-callback-to-receive-inferred-data">5.0 SETUP CALLBACK TO RECEIVE INFERRED DATA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prepare-the-execution-context">6.0 PREPARE THE EXECUTION CONTEXT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-asr-inference-to-the-pipeline">7.0 ADD ASR INFERENCE TO THE PIPELINE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#destroy-instance-s">8.0 DESTROY INSTANCE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unload-interface-s">9.0 UNLOAD INTERFACE(S)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#appendix">APPENDIX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#memory-tracking">MEMORY TRACKING</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cuda">CUDA</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ProgrammingGuideGPT.html">Generative Pre-Trained Transformers (GPT) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ProgrammingGuideEmbed.html">Embedding (EMBED) Programming Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../source-build/README.html">NVIGI Public Source GitHub Pull-and-Build Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="CustomizingPlugins.html">Creating a Customized Plugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../3rd-party-licenses.html">3rd PARTY SOFTWARE</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">In-Game Inferencing SDK</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+
+
+<li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+  
+<li>Automatic Speech Recognition (ASR) - Whisper Programming Guide</li>
+
+      <li class="wy-breadcrumbs-aside">
+      </li>
+<li class="wy-breadcrumbs-aside">
+
+  <span>&nbsp;</span>
+</li>
+
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="automatic-speech-recognition-asr-whisper-programming-guide">
+<h1>Automatic Speech Recognition (ASR) - Whisper Programming Guide<a class="headerlink" href="#automatic-speech-recognition-asr-whisper-programming-guide" title="Permalink to this headline"></a></h1>
+<p>The focus of this guide is on using In-Game Inferencing to integrate an ASR Whisper model into an application. More details can be found here <a class="reference external" href="https://openai.com/research/whisper">OpenAI Whisper</a></p>
+<p>Please read the <code class="docutils literal notranslate"><span class="pre">docs/ProgrammingGuideAI.md</span></code> located in the NVIGI Core package to learn more about overall AI inference API in NVIGI SDK. <a class="reference internal" href="../../../nvigi_core/docs/ProgrammingGuideAI.html"><span class="doc std std-doc">Which may be found here in combined binary packs</span></a></p>
+<blockquote>
+<div><p><strong>IMPORTANT</strong>: This guide might contain pseudo code, for the up to date implementation and source code which can be copy pasted please see the  <a class="reference download internal" download="" href="../../../_downloads/207224b5f077abd6af74ef46a79da9f5/basic.cpp"><span class="xref download myst">basic sample</span></a></p>
+</div></blockquote>
+<section id="version-1-1-0-general-access">
+<h2>Version 1.1.0 General Access<a class="headerlink" href="#version-1-1-0-general-access" title="Permalink to this headline"></a></h2>
+</section>
+<section id="initialize-and-shutdown">
+<h2>1.0 INITIALIZE AND SHUTDOWN<a class="headerlink" href="#initialize-and-shutdown" title="Permalink to this headline"></a></h2>
+<p>Please read the <code class="docutils literal notranslate"><span class="pre">docs/ProgrammingGuide.md</span></code> located in the NVIGI Core package to learn more about initializing and shutting down NVIGI SDK. <a class="reference internal" href="../../../nvigi_core/docs/ProgrammingGuide.html"><span class="doc std std-doc">Which may be found here in combined binary packs</span></a></p>
+</section>
+<section id="obtain-asr-interface">
+<h2>2.0 OBTAIN ASR INTERFACE<a class="headerlink" href="#obtain-asr-interface" title="Permalink to this headline"></a></h2>
+<p>Next, we need to retrieve ASR’s API interface based on what variant we need (CPU, CUDA, etc.)   <strong>NOTE</strong> only the local inference plugins are provided/supported in this early release.  The cloud plugins will be added in a later release:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">nvigi</span><span class="o">::</span><span class="n">IAutoSpeechRecognition</span><span class="o">*</span><span class="w"> </span><span class="n">iasrLocal</span><span class="p">{};</span><span class="w"></span>
+<span class="c1">// Here we are requesting interface for the GGML_CUDA implementation</span>
+<span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">nvigiGetInterface</span><span class="p">(</span><span class="n">nvigi</span><span class="o">::</span><span class="n">plugin</span><span class="o">::</span><span class="n">asr</span><span class="o">::</span><span class="n">ggml</span><span class="o">::</span><span class="n">cuda</span><span class="o">::</span><span class="n">kId</span><span class="w"> </span><span class="o">&amp;</span><span class="n">iasrLocal</span><span class="p">))</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Handle error here</span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>NOTE:</strong>
+One can only obtain interface for a feature which is available on user system. Interfaces are valid as long as the NVIGI ASR feature (plugin) is loaded and active.</p>
+</div></blockquote>
+</section>
+<section id="create-asr-instance-s">
+<h2>3.0 CREATE ASR INSTANCE(S)<a class="headerlink" href="#create-asr-instance-s" title="Permalink to this headline"></a></h2>
+<p>Now that we have our interface we can use it to create our ASR instance. To do this, we need to provide information about ASR model we want to use, CPU/GPU resources which are available and various other creation parameters.</p>
+<blockquote>
+<div><p><strong>NOTE</strong> Only the local inference plugins are provided/supported in this release.  The cloud plugin(s) might be added in a later release.</p>
+</div></blockquote>
+<p>We can obtain this information by requesting capabilities and requirements for a model or models.</p>
+<section id="obtain-capabilities-and-requirements-for-model-s">
+<h3>3.1 OBTAIN CAPABILITIES AND REQUIREMENTS FOR MODEL(S)<a class="headerlink" href="#obtain-capabilities-and-requirements-for-model-s" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><p><strong>IMPORTANT NOTE</strong>: This section covers a scenario where the host application can instantiate models that were not included when the application was packaged and shipped. If the models and their capabilities are predefined and there is no need for dynamically downloaded models, you can skip to the next section.</p>
+</div></blockquote>
+<p>There are few options here:</p>
+<section id="local">
+<h4>LOCAL<a class="headerlink" href="#local" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>provide specific model GUID and VRAM budget and check if that particular model can run within the budget</p></li>
+<li><p>provide null model GUID and VRAM budget to get a list of models that can run within the budget</p></li>
+<li><p>provide null model GUID and ‘infinite’ (SIZE_MAX) VRAM budget to get a list of ALL models</p></li>
+</ul>
+</section>
+<section id="cloud-vram-ignored">
+<h4>CLOUD (VRAM ignored)<a class="headerlink" href="#cloud-vram-ignored" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>provide specific model GUID to obtain CloudCapabilities which include URL and JSON request body for the endpoint used by the model</p></li>
+<li><p>provide null model GUID to get a list of ALL models (CloudCapabilities in this case will NOT provide any info)</p></li>
+</ul>
+<p>Here is an example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">nvigi</span><span class="o">::</span><span class="n">CommonCreationParameters</span><span class="w"> </span><span class="n">common</span><span class="p">{};</span><span class="w"></span>
+<span class="n">common</span><span class="p">.</span><span class="n">utf8PathToModels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myPathToNVIGIModelRepository</span><span class="p">;</span><span class="w"> </span><span class="c1">// Path to provided NVIGI model repository (using UTF-8 encoding)</span>
+<span class="n">common</span><span class="p">.</span><span class="n">vramBudgetMB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myVRAMBudget</span><span class="p">;</span><span class="w">  </span><span class="c1">// VRAM budget (SIZE_MAX if we want ALL models) - IGNORED FOR CLOUD MODELS</span>
+<span class="n">common</span><span class="p">.</span><span class="n">modelGUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myModelGUID</span><span class="p">;</span><span class="w"> </span><span class="c1">// Model GUID, set to `nullptr` if we want all models</span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">CommonCapabilitiesAndRequirements</span><span class="o">*</span><span class="w"> </span><span class="n">caps</span><span class="p">{};</span><span class="w"></span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">getCapsAndRequirements</span><span class="p">(</span><span class="n">igptLocal</span><span class="p">,</span><span class="w"> </span><span class="n">common</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">caps</span><span class="p">)))</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;&#39;getCapsAndRequirements&#39; failed&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">caps</span><span class="o">-&gt;</span><span class="n">numSupportedModels</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">caps</span><span class="o">-&gt;</span><span class="n">modelFlags</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">kModelFlagRequiresDownload</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Local model, requires download</span>
+<span class="w">        </span><span class="k">continue</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w">        </span>
+<span class="w">    </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;MODEL: %s VRAM: %llu&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">caps</span><span class="o">-&gt;</span><span class="n">supportedModelNames</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">caps</span><span class="o">-&gt;</span><span class="n">modelMemoryBudgetMB</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="create-model-instance">
+<h3>3.2 CREATE MODEL INSTANCE<a class="headerlink" href="#create-model-instance" title="Permalink to this headline"></a></h3>
+<p>Once we know which model we want here is an example on how to create an instance for it:</p>
+<p>Here is an example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceInstance</span><span class="o">*</span><span class="w"> </span><span class="n">asrInstanceLocal</span><span class="p">;</span><span class="w"></span>
+<span class="p">{</span><span class="w">    </span>
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">CommonCreationParameters</span><span class="w"> </span><span class="n">common</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">ASRCreationParameters</span><span class="w"> </span><span class="n">params</span><span class="p">{};</span><span class="w">    </span>
+<span class="w">    </span><span class="n">common</span><span class="p">.</span><span class="n">numThreads</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myNumCPUThreads</span><span class="p">;</span><span class="w"> </span><span class="c1">// How many CPU threads is instance allowed to use, relevant only if using CPU feature</span>
+<span class="w">    </span><span class="n">common</span><span class="p">.</span><span class="n">vramBudgetMB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myVRAMBudget</span><span class="p">;</span><span class="w">  </span><span class="c1">// How much VRAM is instance allowed to occupy</span>
+<span class="w">    </span><span class="n">common</span><span class="p">.</span><span class="n">utf8PathToModels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myPathToNVIGIModelRepository</span><span class="p">;</span><span class="w"> </span><span class="c1">// Path to provided NVIGI model repository (using UTF-8 encoding)</span>
+<span class="w">    </span><span class="n">common</span><span class="p">.</span><span class="n">modelGUID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;{5CAD3A03-1272-4D43-9F3D-655417526170}&quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// Model GUID for Whisper, for details please see NVIGI models repository</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="n">chain</span><span class="p">(</span><span class="n">common</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// handle error</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Next we need to provide information about D3D12 properties if our application is planning to leverage <code class="docutils literal notranslate"><span class="pre">CiG</span></code> (CUDA In Graphics)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="w">    </span><span class="n">nvigi</span><span class="o">::</span><span class="n">D3D12Parameters</span><span class="w"> </span><span class="n">d3d12Params</span><span class="p">{};</span><span class="w"></span>
+<span class="w">    </span><span class="n">d3d12Params</span><span class="p">.</span><span class="n">device</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myDevice</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">d3d12Params</span><span class="p">.</span><span class="n">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myDirectQueue</span><span class="p">;</span><span class="w"> </span><span class="c1">// mandatory to use CIG</span>
+<span class="w">    </span><span class="n">d3d12Params</span><span class="p">.</span><span class="n">queueCompute</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myComputeQueue</span><span class="p">;</span><span class="w"> </span><span class="c1">// optional</span>
+<span class="w">    </span><span class="n">d3d12Params</span><span class="p">.</span><span class="n">queueCopy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myCopyQueue</span><span class="p">;</span><span class="w"> </span><span class="c1">// optional</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">params</span><span class="p">.</span><span class="n">chain</span><span class="p">(</span><span class="n">d3d12Params</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// handle error</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">iasrLocal</span><span class="o">-&gt;</span><span class="n">createInstance</span><span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">asrInstanceLocal</span><span class="p">)))</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;NVIGI call failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="audio-input">
+<h2>4.0 AUDIO INPUT<a class="headerlink" href="#audio-input" title="Permalink to this headline"></a></h2>
+<section id="process-complete-audio-clip">
+<h3>4.1 PROCESS COMPLETE AUDIO CLIP<a class="headerlink" href="#process-complete-audio-clip" title="Permalink to this headline"></a></h3>
+<p>The NVIGISample, a 3D rendered interactive NVIGI sample (provided with the SDK) provides helper functions which can be used to record a user’s voice in an optimal format for the inference. These may be found in the files <code class="docutils literal notranslate"><span class="pre">nvigi/AudioRecordingHelper.*</span></code>
+Here is an example of their use:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">AudioRecordingHelper</span><span class="o">::</span><span class="n">RecordingInfo</span><span class="o">*</span><span class="w"> </span><span class="n">audioInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AudioRecordingHelper</span><span class="o">::</span><span class="n">StartRecordingAudio</span><span class="p">();</span><span class="w"></span>
+
+<span class="k">if</span><span class="p">(</span><span class="n">audioInfo</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">nullptr</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">//! Check error </span>
+<span class="p">}</span><span class="w"> </span>
+
+<span class="c1">// ...</span>
+
+<span class="c1">//! Incoming audio is stored in special inference audio variable</span>
+<span class="c1">//! </span>
+<span class="c1">//! 16000 samples mono WAVE suitable for use with most ASR models</span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataAudioSTLHelper</span><span class="w"> </span><span class="n">wavData</span><span class="p">;</span><span class="w"></span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">AudioRecordingHelper</span><span class="o">::</span><span class="n">StopRecordingAudio</span><span class="p">(</span><span class="n">audioInfo</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">wavData</span><span class="p">))</span><span class="w"> </span>
+<span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">//! Check error </span>
+<span class="p">}</span><span class="w"> </span>
+</pre></div>
+</div>
+<p>It is not mandatory to use the NVIGI helpers to record voice, your own recording method can be used but it <strong>must record <code class="docutils literal notranslate"><span class="pre">WAVE</span></code> with a sampling rate of 16000 and 16bits per sample</strong>. Here is an example setup for the audio input slot:</p>
+</section>
+<section id="stream-audio">
+<h3>4.2 STREAM AUDIO<a class="headerlink" href="#stream-audio" title="Permalink to this headline"></a></h3>
+<p>NVIGI does not provide a way to record audio stream since that is out of the scope of this SDK. Any recording method can be used as long as produced audio samples are <strong>single channel (mono) with 16000 sample rate</strong>.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Mark each input based on if this is start, middle or end of a stream</span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">StreamingParameters</span><span class="w"> </span><span class="n">audioChunkInfo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">audioChunkInfo</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">StreamSignalType</span><span class="o">::</span><span class="n">eStreamData</span><span class="p">;</span><span class="w"></span>
+<span class="k">if</span><span class="p">(</span><span class="n">firstChunk</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">audioChunkInfo</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">StreamSignalType</span><span class="o">::</span><span class="n">eStreamStart</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">lastChunk</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">audioChunkInfo</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">StreamSignalType</span><span class="o">::</span><span class="n">eStreamStop</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="c1">// We will chain this later to the runtime parameters in our execution context</span>
+</pre></div>
+</div>
+<blockquote>
+<div><p>NOTE: See <a class="reference internal" href="#add-asr-inference-to-the-pipeline"><span class="std std-doc">section 7 below</span></a> for more details</p>
+</div></blockquote>
+</section>
+<section id="prepare-input-slot">
+<h3>4.3 PREPARE INPUT SLOT<a class="headerlink" href="#prepare-input-slot" title="Permalink to this headline"></a></h3>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Can be full audio clip or streamed audio chunk, in this case pcm16 as the most commonly used audio format</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">int16</span><span class="o">&gt;</span><span class="w"> </span><span class="n">pcm16</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getMyMonoAudio</span><span class="p">();</span><span class="w"></span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataAudioSTLHelper</span><span class="w"> </span><span class="n">audio</span><span class="p">{</span><span class="n">pmc16</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">};</span><span class="w"> </span><span class="c1">// assuming single channel mono audio</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="setup-callback-to-receive-inferred-data">
+<h2>5.0 SETUP CALLBACK TO RECEIVE INFERRED DATA<a class="headerlink" href="#setup-callback-to-receive-inferred-data" title="Permalink to this headline"></a></h2>
+<p>In order to receive transcribed text from the ASR model inference a special callback needs to be setup like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">asrCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[](</span><span class="k">const</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceExecutionContext</span><span class="o">*</span><span class="w"> </span><span class="n">execCtx</span><span class="p">,</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceExecutionState</span><span class="w"> </span><span class="n">state</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">userData</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceExecutionState</span><span class="w"> </span>
+<span class="p">{</span><span class="w">     </span>
+<span class="w">    </span><span class="c1">//! Optional user context to control execution </span>
+<span class="w">    </span><span class="k">auto</span><span class="w"> </span><span class="n">userCtx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">HostProvidedASRCallbackCtx</span><span class="o">*</span><span class="p">)</span><span class="n">userData</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">execCtx</span><span class="o">-&gt;</span><span class="n">outputs</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">       </span><span class="k">const</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataText</span><span class="o">*</span><span class="w"> </span><span class="n">text</span><span class="p">{};</span><span class="w"> </span>
+<span class="w">       </span><span class="n">execCtx</span><span class="o">-&gt;</span><span class="n">outputs</span><span class="o">-&gt;</span><span class="n">findAndValidateSlot</span><span class="p">(</span><span class="n">nvigi</span><span class="o">::</span><span class="n">kASRDataSlotTranscribedText</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">text</span><span class="p">);</span><span class="w"> </span>
+<span class="w">       </span><span class="k">if</span><span class="p">(</span><span class="n">text</span><span class="p">)</span><span class="w"></span>
+<span class="w">       </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">transcribedText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span><span class="o">-&gt;</span><span class="n">getUtf8Text</span><span class="p">();</span><span class="w"></span>
+<span class="w">            </span><span class="c1">//! Do something with the received text </span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">kInferenceExecutionStateDataPending</span><span class="p">)</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span>
+<span class="w">                </span><span class="c1">//! This is final data, more data is pending</span>
+<span class="w">            </span><span class="p">}</span><span class="w"> </span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">kInferenceExecutionStateDataPartial</span><span class="p">)</span><span class="w"> </span>
+<span class="w">            </span><span class="p">{</span><span class="w"> </span>
+<span class="w">                </span><span class="c1">//! This is partial data and subject to change, more data is pending</span>
+<span class="w">            </span><span class="p">}</span><span class="w"></span>
+<span class="w">       </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">kInferenceExecutionStateDone</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="c1">//! This is all the data we can expect to receive </span>
+<span class="w">    </span><span class="p">}</span><span class="w">    </span>
+<span class="w">    </span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">userCtx</span><span class="o">-&gt;</span><span class="n">needToInterruptInference</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span>
+<span class="w">        </span><span class="c1">//! Inform NVIGI that inference should be cancelled </span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">kInferenceExecutionStateCancel</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">state</span><span class="p">;</span><span class="w"> </span>
+<span class="p">};</span><span class="w"> </span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+Input and output data slots provided within the execution context are <strong>only valid during the callback execution</strong>. Host application must be ready to handle callbacks until reaching <code class="docutils literal notranslate"><span class="pre">nvigi::InferenceExecutionStateDone</span></code> or <code class="docutils literal notranslate"><span class="pre">nvigi::InferenceExecutionStateCancel</span></code> state.</p>
+</div></blockquote>
+<blockquote>
+<div><p><strong>NOTE:</strong>
+To cancel ASR inference make sure to return <code class="docutils literal notranslate"><span class="pre">nvigi::InferenceExecutionStateCancel</span></code> state in the callback.</p>
+</div></blockquote>
+</section>
+<section id="prepare-the-execution-context">
+<h2>6.0 PREPARE THE EXECUTION CONTEXT<a class="headerlink" href="#prepare-the-execution-context" title="Permalink to this headline"></a></h2>
+<p>Before ASR can be evaluated the <code class="docutils literal notranslate"><span class="pre">nvigi::InferenceExecutionContext</span></code> needs to be defined:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//! Audio data slot is coming from our previous step</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataSlot</span><span class="o">&gt;</span><span class="w"> </span><span class="n">slots</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="n">nvigi</span><span class="o">::</span><span class="n">kASRDataSlotAudio</span><span class="p">,</span><span class="w"> </span><span class="n">audio</span><span class="p">}</span><span class="w"> </span><span class="p">};</span><span class="w"></span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceDataSlotArray</span><span class="w"> </span><span class="n">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">slots</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="w"> </span><span class="n">slots</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// Input slots</span>
+
+<span class="c1">//! OPTIONAL Runtime parameters, we can for example switch between Greedy or BeamSearch sampling strategies</span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">ASRRuntimeParameters</span><span class="w"> </span><span class="n">asrRuntime</span><span class="p">{};</span><span class="w"></span>
+<span class="n">runtime</span><span class="p">.</span><span class="n">sampling</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">ASRSamplingStrategy</span><span class="o">::</span><span class="n">eBeamSearch</span><span class="p">;</span><span class="w"></span>
+<span class="w">   </span>
+<span class="n">nvigi</span><span class="o">::</span><span class="n">InferenceExecutionContext</span><span class="w"> </span><span class="n">asrContext</span><span class="p">{};</span><span class="w"></span>
+<span class="n">asrContext</span><span class="p">.</span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asrInstanceLocal</span><span class="p">;</span><span class="w">         </span><span class="c1">// The instance we created and we want to run inference on</span>
+<span class="n">asrContext</span><span class="p">.</span><span class="n">callback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">asrCallback</span><span class="p">;</span><span class="w">              </span><span class="c1">// Callback to receive transcribed text</span>
+<span class="n">asrContext</span><span class="p">.</span><span class="n">callbackUserData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">asrCallback</span><span class="p">;</span><span class="w">     </span><span class="c1">// Optional context for the callback, can be null if not needed</span>
+<span class="n">asrContext</span><span class="p">.</span><span class="n">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">inputs</span><span class="p">;</span><span class="w"></span>
+<span class="n">asrContext</span><span class="p">.</span><span class="n">runtimeParameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">asrRuntime</span><span class="p">;</span><span class="w">      </span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+The execution context and all provided data must be valid at the time <code class="docutils literal notranslate"><span class="pre">instance-&gt;evaluate{Async}</span></code> is called (see below for more details).</p>
+</div></blockquote>
+</section>
+<section id="add-asr-inference-to-the-pipeline">
+<h2>7.0 ADD ASR INFERENCE TO THE PIPELINE<a class="headerlink" href="#add-asr-inference-to-the-pipeline" title="Permalink to this headline"></a></h2>
+<p>In your execution pipeline, call <code class="docutils literal notranslate"><span class="pre">instance-&gt;evaluate</span></code> to process single audio clip or <code class="docutils literal notranslate"><span class="pre">instance-&gt;evaluateAsync</span></code> to process audio stream at the appropriate location where audio needs to be transcribed.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Make sure ASR is available and user selected this option in the UI</span>
+<span class="k">if</span><span class="p">(</span><span class="n">useASR</span><span class="p">)</span><span class="w"> </span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">audioStream</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Non-blocking call - evaluate our instance asynchronously with all the provided parameters, transcribed text is received via callback on a different thread</span>
+
+<span class="w">        </span><span class="c1">// Mark each input based on if this is start, middle or end of a stream</span>
+<span class="w">        </span><span class="n">nvigi</span><span class="o">::</span><span class="n">StreamingParameters</span><span class="w"> </span><span class="n">audioChunkInfo</span><span class="p">{};</span><span class="w"></span>
+<span class="w">        </span><span class="n">audioChunkInfo</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">StreamSignalType</span><span class="o">::</span><span class="n">eStreamData</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">firstChunk</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">audioChunkInfo</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">StreamSignalType</span><span class="o">::</span><span class="n">eStreamStart</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">lastChunk</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">audioChunkInfo</span><span class="p">.</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvigi</span><span class="o">::</span><span class="n">StreamSignalType</span><span class="o">::</span><span class="n">eStreamStop</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">asrRuntime</span><span class="p">.</span><span class="n">chain</span><span class="p">(</span><span class="n">audioChunkInfo</span><span class="p">)))</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// handle error</span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">        </span><span class="c1">// IMPORTANT: In this case execution context and all input data MUST BE VALID while audio streaming is active</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">asrContext</span><span class="p">.</span><span class="n">instance</span><span class="o">-&gt;</span><span class="n">evaluateAsync</span><span class="p">(</span><span class="n">asrContext</span><span class="p">)))</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;NVIGI call failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w">   </span>
+<span class="w">    </span><span class="k">else</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Blocking call - evaluate our instance with all the provided parameters, transcribed text is received via callback on the same thread</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">res</span><span class="p">,</span><span class="w"> </span><span class="n">asrContext</span><span class="p">.</span><span class="n">instance</span><span class="o">-&gt;</span><span class="n">evaluate</span><span class="p">(</span><span class="n">asrContext</span><span class="p">)))</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">LOG</span><span class="p">(</span><span class="s">&quot;NVIGI call failed, code %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w">         </span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<blockquote>
+<div><p><strong>IMPORTANT:</strong>
+When using <code class="docutils literal notranslate"><span class="pre">instance-&gt;evaluateAsync</span></code> the host app must ensure that the execution context and all inputs are valid until all streaming data is processed fully and callback receives <code class="docutils literal notranslate"><span class="pre">nvigi::kInferenceExecutionStateDone</span></code> state.</p>
+</div></blockquote>
+</section>
+<section id="destroy-instance-s">
+<h2>8.0 DESTROY INSTANCE(S)<a class="headerlink" href="#destroy-instance-s" title="Permalink to this headline"></a></h2>
+<p>Once ASR is no longer needed each instance should be destroyed like this:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//! Finally, we destroy our instance(s)</span>
+<span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">iasrLocal</span><span class="o">-&gt;</span><span class="n">destroyInstance</span><span class="p">(</span><span class="n">asrInstanceLocal</span><span class="p">)))</span><span class="w"> </span>
+<span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">//! Check error</span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="unload-interface-s">
+<h2>9.0 UNLOAD INTERFACE(S)<a class="headerlink" href="#unload-interface-s" title="Permalink to this headline"></a></h2>
+<p>Once ASR is no longer needed each interface should be unloaded like this.  <strong>NOTE</strong> only the local inference plugins are provided/supported in this early release.  The cloud plugins will be added in a later release:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">//! Finally, we unload the interface since we no longer need ASR</span>
+<span class="k">if</span><span class="p">(</span><span class="n">NVIGI_FAILED</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="n">nvigiUnloadInterface</span><span class="p">(</span><span class="n">nvigi</span><span class="o">::</span><span class="n">plugin</span><span class="o">::</span><span class="n">asr</span><span class="o">::</span><span class="n">ggml</span><span class="o">::</span><span class="n">cuda</span><span class="o">::</span><span class="n">kId</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">iasrLocal</span><span class="p">)))</span><span class="w"> </span>
+<span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="c1">//! Check error</span>
+<span class="p">}</span><span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="appendix">
+<h2>APPENDIX<a class="headerlink" href="#appendix" title="Permalink to this headline"></a></h2>
+<section id="memory-tracking">
+<h3>MEMORY TRACKING<a class="headerlink" href="#memory-tracking" title="Permalink to this headline"></a></h3>
+<section id="cuda">
+<h4>CUDA<a class="headerlink" href="#cuda" title="Permalink to this headline"></a></h4>
+<p>NVIGI provides callback mechanism to track/allocated/free GPU resources as defined in the <code class="docutils literal notranslate"><span class="pre">nvigi_cuda.h</span></code> header. Here is an example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Callback implementations</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">MallocReportCallback</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">user_context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="o">*</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">user_context</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Malloc Report: Allocated &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; bytes at &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span>
+<span class="w">              </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; (User context value: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">FreeReportCallback</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">user_context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="o">*</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">user_context</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Free Report: Freed memory at &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span>
+<span class="w">              </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; (User context value: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int32_t</span><span class="w"> </span><span class="nf">MallocCallback</span><span class="p">(</span><span class="kt">void</span><span class="o">**</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">device</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">managed</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">hip</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">user_context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="o">*</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">user_context</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="o">*</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">malloc</span><span class="p">(</span><span class="n">size</span><span class="p">);</span><span class="w"> </span><span class="c1">// Simulate CUDA malloc</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Malloc Callback: Allocated &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; bytes on device &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">device</span><span class="w"> </span>
+<span class="w">                  </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; (Managed: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">managed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, HIP: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">hip</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, Context: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Success</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Failure</span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="kt">int32_t</span><span class="w"> </span><span class="nf">FreeCallback</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">user_context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">auto</span><span class="o">*</span><span class="w"> </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">user_context</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span><span class="w"> </span><span class="c1">// Simulate CUDA free</span>
+<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Free Callback: Freed memory at &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">ptr</span><span class="w"> </span>
+<span class="w">                  </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; (User context value: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">*</span><span class="n">context</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="c1">// Success</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"> </span><span class="c1">// Failure</span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// Example usage</span>
+<span class="n">CudaParameters</span><span class="w"> </span><span class="n">params</span><span class="p">{};</span><span class="w"></span>
+
+<span class="c1">// User context for tracking (e.g., an integer counter)</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">userContextValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w"></span>
+
+<span class="c1">// Set up callbacks</span>
+<span class="n">params</span><span class="p">.</span><span class="n">cudaMallocReportCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MallocReportCallback</span><span class="p">;</span><span class="w"></span>
+<span class="n">params</span><span class="p">.</span><span class="n">cudaMallocReportUserContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">userContextValue</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">params</span><span class="p">.</span><span class="n">cudaFreeReportCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FreeReportCallback</span><span class="p">;</span><span class="w"></span>
+<span class="n">params</span><span class="p">.</span><span class="n">cudaFreeReportUserContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">userContextValue</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">params</span><span class="p">.</span><span class="n">cudaMallocCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MallocCallback</span><span class="p">;</span><span class="w"></span>
+<span class="n">params</span><span class="p">.</span><span class="n">cudaMallocUserContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">userContextValue</span><span class="p">;</span><span class="w"></span>
+
+<span class="n">params</span><span class="p">.</span><span class="n">cudaFreeCallback</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FreeCallback</span><span class="p">;</span><span class="w"></span>
+<span class="n">params</span><span class="p">.</span><span class="n">cudaFreeUserContext</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">userContextValue</span><span class="p">;</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+<img src="../../../_static/NVIDIA-LogoBlack.svg" class="only-light"/>
+<img src="../../../_static/NVIDIA-LogoWhite.svg" class="only-dark"/>
+
+<p class="notices">
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-policy/" target="_blank">Privacy Policy</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/privacy-center/" target="_blank">Manage My Privacy</a>
+|
+<a href="https://www.nvidia.com/en-us/preferences/start/" target="_blank">Do Not Sell or Share My Data</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/terms-of-service/" target="_blank">Terms of Service</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/accessibility/" target="_blank">Accessibility</a>
+|
+<a href="https://www.nvidia.com/en-us/about-nvidia/company-policies/" target="_blank">Corporate Policies</a>
+|
+<a href="https://www.nvidia.com/en-us/product-security/" target="_blank">Product Security</a>
+|
+<a href="https://www.nvidia.com/en-us/contact/" target="_blank">Contact</a>
+</p>
+
+<p>
+  Copyright &#169; 2024-2025, NVIDIA Corporation.
+</p>
+
+    <p>
+      <span class="lastupdated">Last updated on Mar 13, 2025.
+      </span></p>
+
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+ 
+
+
+
+</body>
+</html>
