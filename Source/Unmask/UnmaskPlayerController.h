@@ -59,12 +59,13 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	TWeakObjectPtr<AUMInteractiveNPCBase> CurrentNPC;
 
-	UPROPERTY(EditDefaultsOnly, Category = "UI")
-	TSubclassOf<class UUserWidget> EvidencePopupClass;
 
-	UPROPERTY()
-	UUserWidget* EvidencePopupInstance = nullptr;
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "UI")
+	void BP_ShowEvidencePopup(const FString& Text);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "UI")
+	void BP_CloseEvidencePopup();
 
 	bool bChatOpen = false;
 

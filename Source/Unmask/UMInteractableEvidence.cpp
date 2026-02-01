@@ -28,7 +28,7 @@ void AUMInteractableEvidence::Interact_Implementation(APawn* InstigatorPawn)
     {
         if (AUnmaskPlayerController* UMPC = Cast<AUnmaskPlayerController>(PC))
         {
-         //   UMPC->ShowEvidencePopup(EvidenceText);
+            UMPC->BP_ShowEvidencePopup(EvidenceText);
         }
     }
 };
