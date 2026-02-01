@@ -8,6 +8,7 @@
 #include "UnmaskCameraManager.h"
 #include "Blueprint/UserWidget.h"
 #include "Unmask.h"
+#include "UnmaskCharacter.h"
 #include "Widgets/Input/SVirtualJoystick.h"
 
 AUnmaskPlayerController::AUnmaskPlayerController()
@@ -71,7 +72,7 @@ void AUnmaskPlayerController::SetupInputComponent()
 void AUnmaskPlayerController::OpenChat(AUMInteractiveNPCBase* NPC)
 {
 	if (!ChatWidgetClass) return;
-
+	
 	CurrentNPC = NPC;
 
 	if (!ChatWidgetInstance)
@@ -93,6 +94,11 @@ void AUnmaskPlayerController::OpenChat(AUMInteractiveNPCBase* NPC)
 		SetIgnoreLookInput(true);
 
 		bChatOpen = true;
+		
+		if (AUnmaskCharacter* character = Cast<AUnmaskCharacter>(GetPawn()))
+		{
+			character->SetSkipLookAtTraceThisFrame(true);
+		}
 	}
 
 	// Optional: if your widget has an input box, call a BP event like FocusInput()
@@ -113,5 +119,9 @@ void AUnmaskPlayerController::CloseChat()
 	SetIgnoreMoveInput(false);
 	SetIgnoreLookInput(false);
 
-	bChatOpen = false;
+	bChatOpen = false;	
+	if (AUnmaskCharacter* character = Cast<AUnmaskCharacter>(GetPawn()))
+	{
+		character->SetSkipLookAtTraceThisFrame(false);
+	}
 }

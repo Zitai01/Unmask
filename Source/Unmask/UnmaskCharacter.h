@@ -52,9 +52,23 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UUMInteractionComponent* InteractionComp;
+
+	/** Mouse Look Input Action */
+	UPROPERTY(EditAnywhere)
+	float InteractDistance = 200.f;
 	
 public:
 	AUnmaskCharacter();
+
+	void Tick(float DeltaSeconds) override;
+	
+	/** Set if we should skip the look at trace on tick for this frame. */
+	UFUNCTION(BlueprintCallable)
+	virtual void SetSkipLookAtTraceThisFrame(bool bShouldSkip) { bSkipLookTrace = bShouldSkip; }
+
+	/** Set if we should skip the look at trace on tick for this frame. */
+	UFUNCTION(BlueprintCallable)
+	AActor* GetCurrentLookAtActor() const { return CurrentLookAtActor.Get(); }
 
 protected:
 
@@ -94,6 +108,10 @@ public:
 
 	/** Returns first person camera component **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+	
 
+private:
+	bool bSkipLookTrace = false;
+	TWeakObjectPtr<AActor> CurrentLookAtActor;
 };
 

@@ -47,6 +47,40 @@ AUnmaskCharacter::AUnmaskCharacter()
 	GetCharacterMovement()->AirControl = 0.5f;
 }
 
+void AUnmaskCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	CurrentLookAtActor = nullptr;
+	if (!bSkipLookTrace)
+	{
+		FCollisionObjectQueryParams ObjectQueryParams;
+		ObjectQueryParams.AddObjectTypesToQuery(ECC_Pawn);
+		ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+
+		AActor* MyOwner = GetOwner();
+
+		FVector EyeLocation;
+		FRotator EyeRotation;
+		MyOwner->GetActorEyesViewPoint(EyeLocation, EyeRotation);
+
+		const FVector End = EyeLocation + (EyeRotation.Vector() * InteractDistance);
+		TArray<FHitResult> Hits;
+
+		const float Radius = 30.0f;
+		FCollisionShape Shape;
+		Shape.SetSphere(Radius);
+		const bool bBlockinghit = GetWorld()->SweepMultiByObjectType(Hits, EyeLocation, End, FQuat::Identity, ObjectQueryParams, Shape);
+
+		//const FColor LineColor = bBlockinghit ? FColor::Green : FColor::Red;
+		for (const FHitResult& Hit : Hits)
+		{
+			CurrentLookAtActor = Hit.GetActor();
+		}
+	}
+
+}
+
 void AUnmaskCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {	
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &AUnmaskCharacter::PrimaryInteract);

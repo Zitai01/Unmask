@@ -29,8 +29,11 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Character")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	FString CharacterName;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FText InitialDialogue;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "GPT", meta = (MultiLine = true))
 	FString CharacterBackgroundPrompt;
