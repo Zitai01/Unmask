@@ -45,7 +45,7 @@ public:
         IGIModulePtr->LoadIGIFeature(nvigi::plugin::gpt::ggml::cuda::kId, &GPTInterface, nullptr);
 
         nvigi::GPTCreationParameters params{};
-
+        params.contextSize = CONTEXT_SIZE_RECOMMENDATION;
         nvigi::CommonCreationParameters common{};
         auto ConvertedString = StringCast<UTF8CHAR>(*IGIModulePtr->GetModelsPath());
         common.utf8PathToModels = reinterpret_cast<const char*>(ConvertedString.Get());

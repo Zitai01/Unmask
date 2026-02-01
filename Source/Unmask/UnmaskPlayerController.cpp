@@ -68,7 +68,7 @@ void AUnmaskPlayerController::SetupInputComponent()
 	}
 	
 }
-void AUnmaskPlayerController::OpenChat(AActor* NPC)
+void AUnmaskPlayerController::OpenChat(AUMInteractiveNPCBase* NPC)
 {
 	if (!ChatWidgetClass) return;
 
@@ -83,7 +83,6 @@ void AUnmaskPlayerController::OpenChat(AActor* NPC)
 	if (!bChatOpen)
 	{
 		ChatWidgetInstance->AddToViewport(1000);
-
 		FInputModeGameAndUI Mode;
 		Mode.SetWidgetToFocus(ChatWidgetInstance->TakeWidget());
 		Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);

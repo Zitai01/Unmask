@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "UMInteractiveNPCBase.h"
 #include "UnmaskPlayerController.generated.h"
 
 class UInputMappingContext;
@@ -55,11 +56,18 @@ public:
 	UPROPERTY()
 	UUserWidget* ChatWidgetInstance = nullptr;
 
+	UPROPERTY(BlueprintReadWrite)
+	TWeakObjectPtr<AUMInteractiveNPCBase> CurrentNPC;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<class UUserWidget> EvidencePopupClass;
+
 	UPROPERTY()
-	TWeakObjectPtr<AActor> CurrentNPC;
+	UUserWidget* EvidencePopupInstance = nullptr;
+
 
 	bool bChatOpen = false;
 
-	void OpenChat(AActor* NPC);
+	void OpenChat(AUMInteractiveNPCBase* NPC);
 	void CloseChat();
 };
