@@ -180,6 +180,7 @@ FIGIGPT* FIGIModule::GetGPT()
     return Pimpl->GetGPT(this);
 }
 
+
 FString GetIGIStatusString(nvigi::Result Result)
 {
     switch (Result)
