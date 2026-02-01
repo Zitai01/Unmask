@@ -28,8 +28,7 @@
 namespace
 {
     constexpr const char* const GGUF_MODEL_MINITRON{ "{8E31808B-C182-4016-9ED8-64804FF5B40D}" };
-
-    constexpr std::size_t VRAM_BUDGET_RECOMMENDATION{ 1024 * 12 };
+    constexpr std::size_t VRAM_BUDGET_RECOMMENDATION{ 1024 * 24 };
     constexpr std::size_t THREAD_NUM_RECOMMENDATION{ 1 }; // Recommended number of threads for CiG
     constexpr std::size_t CONTEXT_SIZE_RECOMMENDATION{ 4096 };
 }

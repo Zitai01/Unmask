@@ -53,10 +53,10 @@ FIGICore::FIGICore(FString IGICoreLibraryPath)
 #if UE_BUILD_SHIPPING
     Pref.showConsole = false;
 #else
-    Pref.showConsole = true;
+    Pref.showConsole = false;
 #endif
     Pref.logLevel = nvigi::LogLevel::eDefault;
-
+    Pref.showConsole = false;
     const FString BaseDir = IPluginManager::Get().FindPlugin("IGI")->GetBaseDir();
     const FString IGIPluginPath = FPaths::Combine(*BaseDir, TEXT("ThirdParty/nvigi_pack/plugins/sdk/bin/x64"));
     const auto IGIPluginPathUTF8 = StringCast<UTF8CHAR>(*IGIPluginPath);
