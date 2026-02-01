@@ -64,7 +64,7 @@ public:
 	UFUNCTION(BlueprintImplementableEvent, Category = "UI")
 	void BP_ShowEvidencePopup(const FString& Text);
 
-	UFUNCTION(BlueprintImplementableEvent, Category = "UI")
+	UFUNCTION(BlueprintCallable,BlueprintImplementableEvent, Category = "UI")
 	void BP_CloseEvidencePopup();
 
 	bool bChatOpen = false;
